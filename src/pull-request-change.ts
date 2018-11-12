@@ -4,7 +4,7 @@ import { Config } from "./config"
 
 async function handlePullRequestChange(context: Context) {
   
-  const cfg = await context.config(".github/4yes.yml", Config);
+  const cfg = await context.config(".github/4eys.yml", Config);
 
   if(!cfg)
     return; 
