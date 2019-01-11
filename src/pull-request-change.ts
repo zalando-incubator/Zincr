@@ -30,7 +30,7 @@ async function handlePullRequestChange(context: Context) {
     const isMemberOfRepositoryOrganisation = await context.github.orgs.getOrgMembership(
       {
         org: org,
-        username: pullRequest!.user!.login + "asdsadd"
+        username: pullRequest!.user!.login
       }
     );
 
@@ -40,15 +40,17 @@ async function handlePullRequestChange(context: Context) {
     ) {
       isOrgMember = true;
     }
+
   } catch (ex) {
+    // if the request fails, the member is not found.. 
     isOrgMember = false;
   }
 
+  // Handle if the PR author is part of the organisation
   if (isOrgMember) {
     const approved = approvals >= cfg.internal.numberOfReviews;
     const desc = approved ? cfg.internal.success : cfg.internal.error;
     const conclusion = approved ? "completed" : "action_required";
-
 
     return context.github.checks.create({
       owner: org,

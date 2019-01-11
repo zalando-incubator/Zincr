@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Probot app",
   "author": "Per Ploug <per.ploug@zalando.de>",
-  "license": "ISC",
+  "license": "MIT",
   "repository": "https://github.com/perploug/4-eyesbot.git",
   "homepage": "https://github.com/perploug/4-eyesbot",
   "bugs": "https://github.com/perploug/4-eyesbot/issues",
@@ -21,17 +21,17 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "probot": "^7.0.0"
+    "probot": "^7.5.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.5",
-    "@types/node": "^10.5.2",
+    "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
     "eslint-plugin-typescript": "^0.12.0",
     "jest": "^23.4.0",
-    "nodemon": "^1.17.2",
+    "nodemon": "^1.18.9",
     "smee-client": "^1.0.2",
     "standard": "^10.0.3",
-    "ts-jest": "^23.0.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^2.9.2",
     "typescript-eslint-parser": "^18.0.0"
   },
