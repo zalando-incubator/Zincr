@@ -1,9 +1,0 @@
-{
-  "name": "4eyes bot",
-  "version": 2,
-  "alias": ["4eyesbot-hooks"],
-
-  "builds": [
-    { "src": "lib/*.js", "use": "@now/node" }
-  ]
-}
