@@ -1,6 +1,6 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
-import requestPromise = require("request-promise");
+//import requestPromise = require("request-promise");
 
 // Patters for issue and url checks
 const ISSUE_PATTERN = /^(?:[-\w]+\/[-\w]+)?#\d+$/g
@@ -19,7 +19,7 @@ export default class SpecificationTask extends BaseTask {
   async run(context: Context, config: any){
 
     // repo and pr data
-    const repo = context.repo();
+    //const repo = context.repo();
     const pr = context.payload.pull_request;
 
     // utillity functions

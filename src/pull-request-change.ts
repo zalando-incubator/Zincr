@@ -1,5 +1,7 @@
 import { Context } from "probot";
-import { Config } from "./config"
+import { TaskConfig } from "./config/tasks"
+import { AppConfig } from "./config/app"
+
 import { ITask } from "./interfaces/itask"
 import { ChecksCreateParams } from "@octokit/rest";
 import { BaseTask } from "./tasks/base";
@@ -7,8 +9,8 @@ import { BaseTask } from "./tasks/base";
 async function handlePullRequestChange(context: Context) {
   
   // use the legacy zappr config for drop-in replacement support
-  const cfg = await context.config("./zappr.yml", Config);
-  const CHECKNAME = "4eyes-bot";
+  const cfg = await context.config(AppConfig.configfile, TaskConfig);
+  const CHECKNAME = AppConfig.checkname;
   const tasksToRun = Object.keys(cfg);
 
   const pullRequest = context.payload.pull_request;
@@ -47,8 +49,8 @@ async function handlePullRequestChange(context: Context) {
       await t.run(context, cfg[task]);
       results.push(t);
     }
-    }catch{
-      
+    }catch(ex){
+      console.log(ex);
     }
   }
 
@@ -74,6 +76,7 @@ async function handlePullRequestChange(context: Context) {
     for(const result of results){
       summary.push(`${ result.success() ? '✅' : '❌' } ${result.name}`);
     }
+
     summary.push("");
     summary.push("Details on how to resolve provided below");
 

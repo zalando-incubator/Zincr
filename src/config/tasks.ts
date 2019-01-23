@@ -1,5 +1,4 @@
-let Config = {
-  tasks: {
+let TaskConfig = {
     // Not implemented
     autobranch: {
       pattern: "{number}-{title}",
@@ -55,7 +54,6 @@ let Config = {
     },
 
     license: {enabled: true}
-  }
 };
 
-export { Config };
+export { TaskConfig };
