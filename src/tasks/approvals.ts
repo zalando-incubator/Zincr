@@ -1,5 +1,6 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
+import { StatusEnum } from "../interfaces/StatusEnum";
 
 export default class FourEyePrincipleTask extends BaseTask {
   
@@ -8,8 +9,8 @@ export default class FourEyePrincipleTask extends BaseTask {
     super();
     
     this.name = "Approvals";  
-    this.description =  "Ensures that all contributions are reviewed by 2 Zalando employees";  
-    this.resolution = `Please ensure that XXX current employees have reviewed and approved this pull request`;
+    this.description =  "Pull request must be reviewed";  
+    this.resolution = `Please ensure that XXX have reviewed this pull request and approve of the change`;
   }
 
   async run(context: Context, config: any){
@@ -19,40 +20,21 @@ export default class FourEyePrincipleTask extends BaseTask {
     const isOrgMember = await this.getOrgMembershipStatus(repo.owner, author, context);
 
     // get current approvals
-    const approvals = await this.getReviewsWithState(context, "approved");
-    const requiredApprovals = Math.max(config.internal, config.external, config.minimum);
+    let approvals = await this.getReviewsWithState(context, "approved");
+    if(isOrgMember && config.includeAuthor){
+      approvals++;
+    }
 
-    if(approvals >= requiredApprovals){
+    if(approvals >= config.minimum){
       return true;
     } 
 
-    if(isOrgMember){
+    this.result.push({
+        label: `${approvals} approvals of ${config.minimum} required`,
+        result: (approvals >= config.minimum) ? StatusEnum.Success : StatusEnum.Failure
+    });
 
-      // hack to fallback to old minimum setting and substract one employee
-      var requiredInternal = config.minimum == null ? config.internal : config.minimum-1;
-
-      this.result.push({
-        label: `${approvals} approvals out of ${requiredInternal} required`,
-        success: (approvals >= requiredInternal)
-      });
-
-      this.resolution = this.resolution.replace('XXX', requiredInternal.toString());
-
-    }else{
-
-      // take the old minimum setting into account, use whichever number is highest
-      var requiredExternal = Math.max(config.minimum,  config.external);
-
-      this.result.push({
-        label: `${approvals} approvals out of ${requiredExternal} required`,
-        success: (approvals >= requiredExternal)
-      });
-
-      this.resolution = this.resolution.replace('XXX', requiredExternal.toString());
-    }
-
-
-    
+    this.resolution = this.resolution.replace('XXX', config.minimum.toString());
     return true;
   }
 

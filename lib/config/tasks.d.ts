@@ -4,9 +4,8 @@ declare let TaskConfig: {
         length: number;
     };
     approvals: {
+        includeAuthor: boolean;
         minimum: number;
-        internal: number;
-        external: number;
     };
     commit: {
         message: {
@@ -37,7 +36,8 @@ declare let TaskConfig: {
         additional: boolean;
     };
     license: {
-        enabled: boolean;
+        onlyAllow: string[];
+        exclude: never[];
     };
 };
 export { TaskConfig };

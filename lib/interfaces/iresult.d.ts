@@ -1,4 +1,5 @@
+import { StatusEnum } from "./StatusEnum";
 export interface IResult {
-    success: boolean;
+    result: StatusEnum;
     label: string;
 }

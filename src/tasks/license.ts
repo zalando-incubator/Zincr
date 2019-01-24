@@ -3,17 +3,15 @@ import { BaseTask } from "./base";
 //import requestPromise = require("request-promise");
 
 import { LicenseLookup } from "license-lookup"
-
-
+import { StatusEnum } from "../interfaces/StatusEnum";
 
 export default class LicenseTask extends BaseTask {
     
   constructor() {
     super(); 
-    this.name = "Dependency Licenses";  
-    this.description =  "Checks commits for new dependencies and which licenses apply to these";
-    
-    this.resolution = `Please check the rules of play docs [here](rulesofplay.com)`;
+    this.name = "Dependency Licensing";  
+    this.description =  "New dependencies have been detected, please review them and their license before merging this pull request.";
+    this.resolution = ``;
   }
 
   async checkComments(context : Context, pull : any) {
@@ -25,6 +23,25 @@ export default class LicenseTask extends BaseTask {
     return comment;
   }
   
+  private _licenseBanned(license : string | undefined, config : any ){
+    if(!license){
+      return StatusEnum.Warning; 
+    }
+
+    if(!config){
+      return StatusEnum.Warning; 
+    }
+
+    if(config.exclude && config.exclude.length>0 && config.exclude.indexOf(license)){
+      return StatusEnum.Failure;
+    }
+
+    if(config.onlyAllow && config.onlyAllow.length>0 && config.onlyAllow.indexOf(license)<0){
+      return StatusEnum.Failure;
+    }
+
+    return StatusEnum.Warning;
+  }
 
   async run(context: Context, config: any){
 
@@ -58,13 +75,19 @@ export default class LicenseTask extends BaseTask {
 
       for(var dd of new_deps_lookup){
         this.result.push({
-          label: `${dd.name} is a new dependency, licensed under: ${dd.license}`,
-          success: false
+          label: `Detected **[${dd.name}](${dd.url})** as a new dependency in **${match.file}**, licensed under: **${dd.license}**`,
+          result: this._licenseBanned(dd.license, config)
         });
       }
       
+      if(new_deps_lookup.length > 0){
+        this.postAsComment = true;
+      }
 
-      this.resolution = JSON.stringify(new_deps_lookup);
+      if(this.result.find(x => x.result === StatusEnum.Failure)){
+        this.resolution = "Dependencies licensed under a license which is not allowed have been detected, please review and remove these dependencies.";
+      }
+
     }
 
     return true;

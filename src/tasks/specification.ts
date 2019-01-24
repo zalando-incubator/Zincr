@@ -1,5 +1,6 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
+import { StatusEnum } from "../interfaces/StatusEnum";
 //import requestPromise = require("request-promise");
 
 // Patters for issue and url checks
@@ -40,7 +41,7 @@ export default class SpecificationTask extends BaseTask {
       if(config.title && config.title["minimum-length"] && config.title["minimum-length"].enabled !== false){
         this.result.push({
           label : `Pull Request Title must be atleast ${config.title["minimum-length"].length} characters`,
-          success: isLongEnough(pr.title, config.title["minimum-length"].length)
+          result: isLongEnough(pr.title, config.title["minimum-length"].length) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
     }
@@ -52,21 +53,21 @@ export default class SpecificationTask extends BaseTask {
       if(config.body && config.body["minimum-length"] && config.body["minimum-length"].enabled !== false){
         this.result.push({
           label : `Pull Request body must be atleast ${config.body["minimum-length"].length} characters`,
-          success: isLongEnough(pr.body, config.body["minimum-length"].length)
+          result: isLongEnough(pr.body, config.body["minimum-length"].length) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
 
       if(config.body["contains-issue-number"]){
         this.result.push({
           label : `Pull Request body must contain issue number`,
-          success: containsPattern(ISSUE_PATTERN, pr.body)
+          result: containsPattern(ISSUE_PATTERN, pr.body) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
 
       if(config.body["contains-url"]){
         this.result.push({
           label : `Pull Request body must contain url`,
-          success: containsPattern(URL_PATTERN, pr.body)
+          result: containsPattern(URL_PATTERN, pr.body) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
     }

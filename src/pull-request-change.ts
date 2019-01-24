@@ -6,6 +6,7 @@ import { ITask } from "./interfaces/itask"
 import { ChecksCreateParams } from "@octokit/rest";
 import { BaseTask } from "./tasks/base";
 
+
 async function handlePullRequestChange(context: Context) {
   
   // use the legacy zappr config for drop-in replacement support
@@ -14,6 +15,7 @@ async function handlePullRequestChange(context: Context) {
   const tasksToRun = Object.keys(cfg);
 
   const pullRequest = context.payload.pull_request;
+  const issue = context.issue();
 
   // if there is no pull request or the state is not open, no reason to continue
   if (!pullRequest || pullRequest.state !== "open") return;
@@ -55,51 +57,77 @@ async function handlePullRequestChange(context: Context) {
   }
 
   // based on the above tasks, build a check result
-  const failedTasks = results.filter(x => !x.success());
+  const failedTasks = results.filter(x => x.summary().Failure.length > 0);
+  const warningTasks = results.filter(x => x.summary().Warning.length > 0 && x.summary().Failure.length == 0);
+  const successTasks = results.filter(x => x.summary().Warning.length == 0 && x.summary().Failure.length == 0);
+
   let checkResult : ChecksCreateParams = {
     ...checkInfo,
     status: "completed",
     conclusion: (failedTasks.length==0) ? "success" : "action_required",
     completed_at: new Date().toISOString(),
     output: {
-      title: "All checks have passed",
+      title: `Found ${failedTasks.length} problems,  ${warningTasks.length} warnings`,
       summary: '',
       text: ''
     }
   };
   
-  if(failedTasks.length > 0){
-    checkResult.output!.title = `${failedTasks.length} checks out of ${results.length} failed`;
+  if(warningTasks.length + failedTasks.length > 0){
     
-    var summary = [];
-    
-    for(const result of results){
-      summary.push(`${ result.success() ? '✅' : '❌' } ${result.name}`);
+    var summary = [];    
+    for(const result of failedTasks){
+      summary.push(`❌ ${result.name}`);
+    }
+    for(const result of warningTasks){
+      summary.push(`⚠️ ${result.name}`);
+    }
+    for(const result of successTasks){
+      summary.push(`✅ ${result.name}`);
     }
 
     summary.push("");
     summary.push("Details on how to resolve provided below");
 
     var resolutions = [];
+    var comments = [];
     for(const result of failedTasks){
+      resolutions.push(result.render());
 
-      resolutions.push(`### Task: ${result.name} failed`);
-      resolutions.push(`${result.description}`);
+      if(result.postAsComment){
+        comments.push(result.render());
+      }
+    }
 
-      resolutions.push(`#### Resolution`);
-      resolutions.push(`${result.resolution}`); 
+    for(const result of warningTasks){
+      resolutions.push(result.render());
 
-      if(result.result){
-        resolutions.push("#### Details");
-
-        for(const subResult of result.result){
-          resolutions.push(`${ subResult.success ? '✅' : '❌' } ${subResult.label}`);
-        }
+      if(result.postAsComment){
+        comments.push(result.render());
       }
     }
 
     checkResult.output!.summary = summary.join('\n');
     checkResult.output!.text = resolutions.join('\n');
+
+
+    //section for providing guidance as a comment on the P
+    const issue_comments = await context.github.issues.listComments(issue);
+    const comment = issue_comments.data.find(comment => comment.user.login === AppConfig.appname + "[bot]");
+
+    if(comments.length > 0){
+      const body = comments.join('\n');
+      
+      if(comment){
+        await context.github.issues.updateComment({ ...issue, comment_id: comment.id, body: body });
+      }else{
+        await context.github.issues.createComment({ ...issue, body: body });
+      }
+
+    }else if(comment){
+      // this likely won't work... 
+      await context.github.issues.deleteComment({ ...issue, comment_id: comment.id });
+    }
   }
 
   return context.github.checks.create(checkResult);
