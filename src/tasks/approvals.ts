@@ -3,8 +3,7 @@ import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { IAppConfig } from "../interfaces/config/iappconfig";
 
-export default class FourEyePrincipleTask extends BaseTask<any> {
-  
+export default class FourEyePrincipleTask extends BaseTask<any> { 
 
   constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
     super(appconfig, config, repo); 

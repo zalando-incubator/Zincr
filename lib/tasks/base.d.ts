@@ -22,6 +22,7 @@ export declare abstract class BaseTask<T> implements ITask {
     });
     run(context: Context): Promise<boolean>;
     summary(): IResultSummary;
+    success(): boolean;
     render(options?: {
         includeDescription: boolean;
         includeHeader: boolean;

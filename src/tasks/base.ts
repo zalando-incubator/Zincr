@@ -9,7 +9,7 @@ export abstract class BaseTask<T> implements ITask {
   name = "";
   description = "";
   resolution = "";
-  
+
   result = new Array<IResult>();
   postAsComment = false;
 
@@ -45,6 +45,10 @@ export abstract class BaseTask<T> implements ITask {
     return this._summary
   }
 
+  success(){
+    return !(this.summary().Failure.length > 0 || this.summary().Warning.length > 0);
+  }
+
   render( options : {includeDescription: boolean, includeHeader : boolean, addCheckBox: boolean} = {includeDescription: true, includeHeader: true, addCheckBox: false} ){
     const icon = (status: StatusEnum)=>{
       switch (status) {
@@ -76,7 +80,7 @@ export abstract class BaseTask<T> implements ITask {
         resolutions.push(`${this.description}`);
       }
 
-      if(this.resolution && this.resolution !== ''){
+      if(!this.success() && this.resolution && this.resolution !== ''){
         resolutions.push(`**${this.resolution}**`); 
       }
     }
