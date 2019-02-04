@@ -1,6 +1,10 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
-export default class SpecificationTask extends BaseTask {
-    constructor();
-    run(context: Context, config: any): Promise<boolean>;
+import { IAppConfig } from "../interfaces/config/iappconfig";
+export default class SpecificationTask extends BaseTask<any> {
+    constructor(appconfig: IAppConfig, config: any, repo: {
+        repo: string;
+        owner: string;
+    });
+    run(context: Context): Promise<boolean>;
 }

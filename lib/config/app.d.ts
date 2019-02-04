@@ -1,6 +1,3 @@
-declare let AppConfig: {
-    appname: string;
-    checkname: string;
-    configfile: string;
-};
+import { IAppConfig } from "../interfaces/config/iappconfig";
+declare let AppConfig: IAppConfig;
 export { AppConfig };

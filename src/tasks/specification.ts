@@ -1,23 +1,24 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
+import { IAppConfig } from "../interfaces/config/iappconfig";
 //import requestPromise = require("request-promise");
 
 // Patters for issue and url checks
-const ISSUE_PATTERN = /^(?:[-\w]+\/[-\w]+)?#\d+$/g
-const URL_PATTERN = /\bhttps?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
+const ISSUE_PATTERN = /(?:\w[\w-.]+\/\w[\w-.]+|\B)#[1-9]\d*\b/;
+const URL_PATTERN = /\bhttps?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
 
 
-export default class SpecificationTask extends BaseTask {
+export default class SpecificationTask extends BaseTask<any> {
     
-  constructor() {
-    super(); 
+  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
+    super(appconfig, config, repo); 
     this.name = "Specification";  
-    this.description =  "Checks for the presence of a issue tracker number in the pull request";
-    this.resolution = `Please check the rules of play docs [here](rulesofplay.com)`;
+    this.description =  "All pull requests must follow certain rules for content length and form";
+    this.resolution = `Please ensure the follow issues are resolved:`;
   }
 
-  async run(context: Context, config: any){
+  async run(context: Context){
 
     // repo and pr data
     //const repo = context.repo();
@@ -29,42 +30,43 @@ export default class SpecificationTask extends BaseTask {
     
     // Check template
     // Get template - compare to body
-    if(config.template){
+    if(this.config.template){
       //const url = `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/master/.github/PULL_REQUEST_TEMPLATE.md`;
       //const template = await requestPromise(url, { resolveWithFullResponse: true });
     }
 
     // Check title
     // check min length
-    if(config.title){
+    if(this.config.title){
 
-      if(config.title && config.title["minimum-length"] && config.title["minimum-length"].enabled !== false){
+      if(this.config.title && this.config.title["minimum-length"] && this.config.title["minimum-length"].enabled !== false){
+
         this.result.push({
-          label : `Pull Request Title must be atleast ${config.title["minimum-length"].length} characters`,
-          result: isLongEnough(pr.title, config.title["minimum-length"].length) ? StatusEnum.Success : StatusEnum.Failure
+          label : `Pull Request Title must be atleast ${this.config.title["minimum-length"].length} characters`,
+          result: isLongEnough(pr.title, this.config.title["minimum-length"].length) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
     }
 
     // Check body
     // check for issue pattern or url pattern
-    if(config.body){
+    if(this.config.body){
 
-      if(config.body && config.body["minimum-length"] && config.body["minimum-length"].enabled !== false){
+      if(this.config.body && this.config.body["minimum-length"] && this.config.body["minimum-length"].enabled !== false){
         this.result.push({
-          label : `Pull Request body must be atleast ${config.body["minimum-length"].length} characters`,
-          result: isLongEnough(pr.body, config.body["minimum-length"].length) ? StatusEnum.Success : StatusEnum.Failure
+          label : `Pull Request body must be atleast ${this.config.body["minimum-length"].length} characters`,
+          result: isLongEnough(pr.body, this.config.body["minimum-length"].length) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
 
-      if(config.body["contains-issue-number"]){
+      if(this.config.body["contains-issue-number"]){
         this.result.push({
           label : `Pull Request body must contain issue number`,
-          result: containsPattern(ISSUE_PATTERN, pr.body) ? StatusEnum.Success : StatusEnum.Failure
+          result: ISSUE_PATTERN.test(pr.body) ? StatusEnum.Success : StatusEnum.Failure
         });
       }
 
-      if(config.body["contains-url"]){
+      if(this.config.body["contains-url"]){
         this.result.push({
           label : `Pull Request body must contain url`,
           result: containsPattern(URL_PATTERN, pr.body) ? StatusEnum.Success : StatusEnum.Failure

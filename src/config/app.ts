@@ -1,6 +1,8 @@
-let AppConfig = {
-  appname:  "4eyesbot",
-  checkname:  "4eyes-bot",
+import { IAppConfig } from "../interfaces/config/iappconfig";
+
+let AppConfig : IAppConfig= {
+  appname:  "zincr",
+  checkname:  "Zincr-bot",
   configfile: "../.zappr.yml"
 };
 

@@ -10,7 +10,7 @@ export = (app: Application) => {
 
   app.on(
     [
-      "pull_request"
+      "pull_request", "pull_request_review"
     ],
     handlePullRequest
   );

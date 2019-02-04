@@ -1,20 +1,11 @@
-let TaskConfig = {
-    // Not implemented
-    autobranch: {
-      pattern: "{number}-{title}",
-      length: 60
-    },
+import { ITaskConfig } from "../interfaces/config/itaskconfig";
+import { StatusEnum } from "../interfaces/StatusEnum";
 
+let TaskConfig : ITaskConfig = {
+    
     approvals: {
       includeAuthor: true,
       minimum: 2,
-    },
-
-    // not implemented
-    commit: {
-      message: {
-        patterns: ["#[0-9]+"]
-      }
     },
 
     specification: {
@@ -40,13 +31,7 @@ let TaskConfig = {
       }
     },
 
-    // not implemented
-    "pull-request": {
-      labels: [],
-      additional: true
-    },
-
-    license: {
+    license : {
       // By default this only allows licenses which are compatible with MIT and similiar
       // modify to suit your needs.
       onlyAllow: [
@@ -62,7 +47,10 @@ let TaskConfig = {
       ],
 
       // use a ban approach 
-      exclude: []
+      exclude: [],
+
+      onNolicense: StatusEnum.Warning,
+      onNotFound: StatusEnum.Warning
     }
 };
 

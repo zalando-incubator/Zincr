@@ -1,17 +1,19 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
-//import requestPromise = require("request-promise");
+import { PullRequestsGetResponse } from "@octokit/rest";
+import { ILicenseConfig } from "../interfaces/config/ilicenseconfig";
+import { IAppConfig } from "../interfaces/config/iappconfig";
+import Lookup from "../license/lookup";
 
-import { LicenseLookup } from "license-lookup"
-import { StatusEnum } from "../interfaces/StatusEnum";
-
-export default class LicenseTask extends BaseTask {
+export default class LicenseTask extends BaseTask<ILicenseConfig> {
     
-  constructor() {
-    super(); 
+  constructor(appconfig : IAppConfig, config : ILicenseConfig, repo: {repo: string, owner: string}) {
+    super(appconfig, config, repo); 
+
     this.name = "Dependency Licensing";  
-    this.description =  "New dependencies have been detected, please review them and their license before merging this pull request.";
-    this.resolution = ``;
+    this.description =  "All dependencies specified in package manager files must be reviewed, banned dependency licenses will block the merge, all new dependencies introduced in this pull request will give a warning, but not block the merge";
+    this.resolution = `Please ensure that only dependencies with licenses compatible with the license of this project is included in the pull request.`;
+    this.postAsComment = true;
   }
 
   async checkComments(context : Context, pull : any) {
@@ -23,73 +25,14 @@ export default class LicenseTask extends BaseTask {
     return comment;
   }
   
-  private _licenseBanned(license : string | undefined, config : any ){
-    if(!license){
-      return StatusEnum.Warning; 
-    }
+  async run(context: Context){
 
-    if(!config){
-      return StatusEnum.Warning; 
-    }
-
-    if(config.exclude && config.exclude.length>0 && config.exclude.indexOf(license)){
-      return StatusEnum.Failure;
-    }
-
-    if(config.onlyAllow && config.onlyAllow.length>0 && config.onlyAllow.indexOf(license)<0){
-      return StatusEnum.Failure;
-    }
-
-    return StatusEnum.Warning;
-  }
-
-  async run(context: Context, config: any){
-
-    // repo and pr data
-    //const repo = context.repo();
-    const pr = context.payload.pull_request;
-    const repo = context.repo();
-    const pr_contents = await context.github.pullRequests.listFiles({ ...repo, number: pr.number});
-    const pr_files = pr_contents.data.map(x => x.filename);
-
-    var ll = new LicenseLookup();
-    var matches = ll.matchFilesToManager(pr_files);
-    if(matches.length == 0)
-    {
-      return true;
-    }
+    const pullRequest : PullRequestsGetResponse = context.payload.pull_request;
     
-    for(const match of matches){
-      var base = await context.github.repos.getContents( {...repo, path: match.file,});
-      var head = await context.github.repos.getContents( {repo: pr.head.repo.name, owner: pr.head.repo.owner.login, path: match.file, ref: pr.head.ref})
-      
-      const base_content = Buffer.from(base.data.content, 'base64').toString()
-      const head_content = Buffer.from(head.data.content, 'base64').toString()
-
-      var base_deps = await match.manager.detect(base_content);
-      var head_deps = await match.manager.detect(head_content);
-
-      var baseDepsKeys = base_deps.map(x => x.name);
-      var new_deps = head_deps.filter( x => baseDepsKeys.indexOf(x.name)<0 );
-      var new_deps_lookup = await match.manager.lookup(new_deps);
-
-      for(var dd of new_deps_lookup){
-        this.result.push({
-          label: `Detected **[${dd.name}](${dd.url})** as a new dependency in **${match.file}**, licensed under: **${dd.license}**`,
-          result: this._licenseBanned(dd.license, config)
-        });
-      }
-      
-      if(new_deps_lookup.length > 0){
-        this.postAsComment = true;
-      }
-
-      if(this.result.find(x => x.result === StatusEnum.Failure)){
-        this.resolution = "Dependencies licensed under a license which is not allowed have been detected, please review and remove these dependencies.";
-      }
-
-    }
-
+    //do the license lookup
+    var lookup = new Lookup(this.config, context);
+    this.result = await lookup.run(this.repo, pullRequest.base.ref, pullRequest);
+  
     return true;
   }
 }

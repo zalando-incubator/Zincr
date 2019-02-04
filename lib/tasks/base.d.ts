@@ -2,15 +2,29 @@ import { ITask } from "../interfaces/itask";
 import { Context } from "probot";
 import { IResult } from "../interfaces/iresult";
 import { IResultSummary } from "../interfaces/iresultsummary";
-export declare abstract class BaseTask implements ITask {
+import { IAppConfig } from "../interfaces/config/iappconfig";
+export declare abstract class BaseTask<T> implements ITask {
     name: string;
     description: string;
     resolution: string;
     result: IResult[];
     postAsComment: boolean;
+    appconfig: IAppConfig;
+    config: T;
+    repo: {
+        repo: string;
+        owner: string;
+    };
     private _summary;
-    constructor();
-    run(context: Context, config: object): Promise<boolean>;
+    constructor(appconfig: IAppConfig, config: T, repo: {
+        repo: string;
+        owner: string;
+    });
+    run(context: Context): Promise<boolean>;
     summary(): IResultSummary;
-    render(): string;
+    render(options?: {
+        includeDescription: boolean;
+        includeHeader: boolean;
+        addCheckBox: boolean;
+    }): string;
 }
