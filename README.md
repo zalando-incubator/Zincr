@@ -1,6 +1,8 @@
 # Zincr
 
-A GitHub App built with [Probot](https://github.com/probot/probot) to scan pull requests for specification, licensing and approvals. 
+A GitHub App built with [Probot](https://github.com/probot/probot) to scan pull requests for specification, licensing and approvals. The app will leave a comment on each pull request with instructions on how resolve the issue, and also provide a full list of checks performed in a status check - if any checks fails, it will block the merge.
+
+![Screenshot](./Screenshot.png)
 
 ## Install on Github
 Install via [Github Apps](https://github.com/apps/zincr) out of the box, the bot will run 3 pre-configured checks on all pull requests:
@@ -41,6 +43,8 @@ Checks if a minimum number of team members have approved a proposed change in a 
 This check is somewhat stricter than standard GitHub reviews as it will **dismiss all reviews by team members who have contributed to the pull request**. 
 
 **Example**: User A submits a PR, User B has access to the branch and makes changes to this branch directly. Normally GitHub reviews will allow User B to approve the PR and thereby allow changes without review to enter the master branch. This check will dismiss any approvals by users who also have commits in the PR branch - except for changes made via the suggestion feature, as these are approved by the original author before inclusion. 
+
+![Screenshot](./Screenshot2.png)
 
 #### Config options:
 ```yaml
