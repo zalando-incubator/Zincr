@@ -1,6 +1,10 @@
 # Zincr
 
-A GitHub App built with [Probot](https://github.com/probot/probot) to scan pull requests for specification, licensing and approvals. The app will leave a comment on each pull request with instructions on how resolve the issue, and also provide a full list of checks performed in a status check - if any checks fails, it will block the merge.
+A GitHub App built with [Probot](https://github.com/probot/probot) to scan pull requests for specification, licensing and approvals. 
+
+> Galvanization or galvanizing is the process of applying a protective **zinc** coating to steel or iron, to prevent rusting. The most common method is hot-dip galvanizing, in which the parts are submerged in a bath of molten zinc.
+
+The app will leave a comment on each pull request with instructions on how resolve the issue, and also provide a full list of checks performed in a status check - if any checks fails, it will block the merge.
 
 ![Screenshot](./Screenshot.png)
 
