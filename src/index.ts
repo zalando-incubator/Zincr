@@ -2,12 +2,11 @@ import { Application } from "probot";
 
 
 export = (app: Application) => {
-  // Your code here
-  app.log("Yay, the app was loaded!");
-
+  
   const handlePullRequest = require("./pull-request-change");
   const setStatusPass = require("./set-status-pass");
 
+  // Runs the check on all pull request and review events
   app.on(
     [
       "pull_request", "pull_request_review"
@@ -16,6 +15,4 @@ export = (app: Application) => {
   );
 
   app.on('check_run.requested_action', setStatusPass)
-
-  
 };

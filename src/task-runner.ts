@@ -9,13 +9,13 @@ export class TaskRunner {
   appconfig : IAppConfig;
   taskconfig : ITaskConfig;
   repo: {repo: string, owner: string};
-  tasks : string[];
+  tasks : Array< [string, any] > ;
 
   constructor(appconfig : IAppConfig, taskconfig : ITaskConfig, repo: {repo: string, owner: string}) {
     this.appconfig = appconfig;
     this.taskconfig = taskconfig;
     this.repo = repo;
-    this.tasks = Object.keys(this.taskconfig);
+    this.tasks = Object.entries(this.taskconfig).filter(x => x[1].enabled);
   }
 
   async run(context: Context) : Promise<ITaskRunnerResults>{
@@ -23,12 +23,13 @@ export class TaskRunner {
 
     for(const task of this.tasks){
       
-      var tConfig = this.taskconfig[task];
+      var taskname = task[0];
+      var tConfig = task[1];
 
       try{
         // The 2019 winner of the most wonderful syntax award... 
         //wanted to cast this as basetask, but seems impossible since we cannot load a type dynamicly into a generic
-        var t : any = new ((await import("./tasks/" + task)).default)(this.appconfig, tConfig, this.repo);
+        var t : any = new ((await import("./tasks/" + taskname)).default)(this.appconfig, tConfig, this.repo);
         if(t !== null){
           await t.run(context);
           results.push(t);

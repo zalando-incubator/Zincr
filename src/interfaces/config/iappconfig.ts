@@ -1,5 +1,6 @@
 export interface IAppConfig {
   appname:  string,
   checkname:  string,
-  configfile: string
+  configfile: string,
+  zapprfile: string
 }

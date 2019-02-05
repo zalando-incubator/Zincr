@@ -22,7 +22,8 @@ async function repositoryAdded(context: Context) {
       const licfg : ILicenseConfig = { 
                     onNolicense: StatusEnum.Warning, 
                     onNotFound: StatusEnum.Success, 
-                    baseLicense: repo_data.data.license.spdx_id
+                    baseLicense: repo_data.data.license.spdx_id,
+                    enabled: true
                   };
                   
       const licenseTask = new LicenseTask(AppConfig, licfg, repo);

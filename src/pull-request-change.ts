@@ -1,6 +1,5 @@
 import { Context } from "probot";
-import { TaskConfig } from "./config/tasks"
-import { AppConfig } from "./config/app"
+import { AppConfig, getTasksConfig } from "./config/app"
 import { ChecksCreateParams } from "@octokit/rest";
 import { TaskRunner } from "./task-runner";
 
@@ -8,7 +7,7 @@ import { TaskRunner } from "./task-runner";
 async function handlePullRequestChange(context: Context) {
   
   // use the legacy zappr config for drop-in replacement support
-  const cfg = await context.config(AppConfig.configfile, TaskConfig);
+  const cfg = await getTasksConfig(context);
   const CHECKNAME = AppConfig.checkname;
   
   const pullRequest = context.payload.pull_request;

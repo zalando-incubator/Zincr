@@ -5,5 +5,6 @@ export interface ILicenseConfig {
     whitelist?: string[];
     onNotFound: StatusEnum;
     onNolicense: StatusEnum;
+    enabled: boolean;
     baseLicense?: string;
 }

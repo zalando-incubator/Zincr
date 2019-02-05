@@ -7,6 +7,7 @@ export interface ILicenseConfig {
   
   onNotFound: StatusEnum,
   onNolicense: StatusEnum,
-
+  
+  enabled: boolean,
   baseLicense?: string
 }

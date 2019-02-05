@@ -9,7 +9,7 @@ export declare class TaskRunner {
         repo: string;
         owner: string;
     };
-    tasks: string[];
+    tasks: Array<[string, any]>;
     constructor(appconfig: IAppConfig, taskconfig: ITaskConfig, repo: {
         repo: string;
         owner: string;

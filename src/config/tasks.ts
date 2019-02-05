@@ -6,9 +6,12 @@ let TaskConfig : ITaskConfig = {
     approvals: {
       includeAuthor: true,
       minimum: 2,
+      enabled: true
     },
 
     specification: {
+      enabled: true,
+
       title: {
         "minimum-length": {
           length: 8,
@@ -50,7 +53,9 @@ let TaskConfig : ITaskConfig = {
       exclude: [],
 
       onNolicense: StatusEnum.Warning,
-      onNotFound: StatusEnum.Warning
+      onNotFound: StatusEnum.Warning,
+
+      enabled: true
     }
 };
 
