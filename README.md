@@ -1,6 +1,6 @@
 # Zincr
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) to scan pull requests for specification, licensing and approvals. 
+A GitHub App built with [Probot](https://github.com/probot/probot) to scan pull requests for specification, licensing and approvals. 
 
 ## Install on Github
 Install via [Github Apps](https://github.com/apps/zincr) out of the box, the bot will run 3 pre-configured checks on all pull requests:
