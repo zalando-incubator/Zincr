@@ -14,6 +14,7 @@ Install via [Github Apps](https://github.com/apps/zincr) out of the box, the bot
 - [Specification](#Specification)
 - [Approvals](#Approvals)
 - [License](#License)
+- [Large Commits](#Large-Commits)
 
 The checks will rerun on new PRs, PR updates and when PRs are reviewed. Details on each check is outlined further down.
 
@@ -87,7 +88,7 @@ these are: `publicdomain`,`permissive`, `weakcopyleft`, `strongcopyleft` and `ne
 
 
 ### Specification
-Check to determin if the specification of a pull request follows specific style rules, it must have a minimum length, include a url, and include an issue ID, each individual check can be enabled/disabled
+Check to determine if the specification of a pull request follows specific style rules, it must have a minimum length, include a url, and include an issue ID, each individual check can be enabled/disabled
 
 ```yaml
 specification: 
@@ -105,6 +106,15 @@ specification:
     
     // Enforce that all PRs have a github issues ID (#1234)
     contains-issue-number: true
+```
+
+### Large Commits
+Check to detect big changes made to a file in a single commit to warn of potential large changes which can have a higher degree of complexity and have a bigger risk of being an external code snippet pasted into the codebase and therefore need to be reviewed carefully for copyright and licensing issues.
+
+```yaml
+largecommits: 
+  enabled: true
+  maxLines: 100
 ```
 
 ## Setup
