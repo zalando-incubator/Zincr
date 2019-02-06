@@ -9,7 +9,7 @@ The app will leave a comment on each pull request with instructions on how resol
 ![Screenshot](./Screenshot.png)
 
 ## Install on Github
-Install via [Github Apps](https://github.com/apps/zincr) out of the box, the bot will run 3 pre-configured checks on all pull requests:
+Install via [Github Apps](https://github.com/apps/zincr) out of the box, the bot will run pre-configured checks on all pull requests:
 
 - [Specification](#Specification)
 - [Approvals](#Approvals)
