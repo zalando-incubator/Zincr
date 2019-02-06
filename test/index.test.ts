@@ -36,6 +36,10 @@ describe('dco', () => {
       .reply(404)
 
     nock('https://api.github.com')
+      .get('/repos/robotland/test/contents/.github/.zincr.yml')
+      .reply(404)
+
+    nock('https://api.github.com')
       .post('/repos/robotland/test/check-runs', (body : ChecksUpdateResponse) => {
         body.completed_at = '2018-07-14T18:18:54.156Z'
         

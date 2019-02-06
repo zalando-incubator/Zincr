@@ -2,7 +2,12 @@ import { ITaskConfig } from "../interfaces/config/itaskconfig";
 import { StatusEnum } from "../interfaces/StatusEnum";
 
 let TaskConfig : ITaskConfig = {
-    
+  
+    largecommits : {
+      enabled: true,
+      maxLines: 100
+    },
+
     approvals: {
       includeAuthor: true,
       minimum: 2,

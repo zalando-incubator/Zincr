@@ -16,10 +16,8 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
 
   async run(context: Context){
     
-    const repo = context.repo();
-
     const author = context.payload.pull_request.user.login;
-    const isOrgMember = await this.getOrgMembershipStatus(repo.owner, author, context);
+    const isOrgMember = await this.getOrgMembershipStatus(this.repo.owner, author, context);
 
     var approvals = 0;
     var desc = "";

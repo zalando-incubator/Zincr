@@ -2,6 +2,7 @@ import { Context } from "probot";
 import { AppConfig, getTasksConfig } from "./config/app"
 import { ChecksCreateParams } from "@octokit/rest";
 import { TaskRunner } from "./task-runner";
+import { IconEnum } from "./interfaces/IconEnum";
 
 
 async function handlePullRequestChange(context: Context) {
@@ -13,6 +14,14 @@ async function handlePullRequestChange(context: Context) {
   const pullRequest = context.payload.pull_request;
   const event = context.event;
   const issue = context.issue();
+
+  const _plural = function(plural : string, singular : string, count : number) : string{
+    if(count === 1){
+      return singular;
+    }else{
+      return plural;
+    }
+  }
 
   // if there is no pull request or the state is not open, no reason to continue
   if (!pullRequest || pullRequest.state !== "open") return;
@@ -39,7 +48,7 @@ async function handlePullRequestChange(context: Context) {
     ...checkInfo,
     status: "in_progress",
     output: {
-      title: `Processing ${runner.tasks.length} checks`,
+      title: `Processing ${runner.tasks.length} ${_plural("checks", "check", runner.tasks.length)}`,
       summary: ''
     }
   });
@@ -53,7 +62,7 @@ async function handlePullRequestChange(context: Context) {
     conclusion: (result.Failure.length==0) ? "success" : "action_required",
     completed_at: new Date().toISOString(),
     output: {
-      title: `Found ${result.Failure.length} problems,  ${result.Warning.length} warnings`,
+      title: `Found ${result.Failure.length} ${_plural("problems", "problem", result.Failure.length)},  ${result.Warning.length} ${_plural("warnings", "warning", result.Failure.length)}`,
       summary: '',
       text: ''
     }
@@ -61,24 +70,27 @@ async function handlePullRequestChange(context: Context) {
   
     var summary = [];    
     for(const r of result.Failure){
-      summary.push(`- ❌ ${r.name}`);
+      summary.push(`    ${IconEnum.Failure} ${r.name}`);
     }
     for(const r of result.Warning){
-      summary.push(`- ⚠️ ${r.name}`);
+      summary.push(`    ${IconEnum.Warning} ${r.name}`);
     }
     for(const r of result.Success){
-      summary.push(`- ✅ ${r.name}`);
+      summary.push(`    ${IconEnum.Success} ${r.name}`);
     }
 
     if(result.Warning.length + result.Failure.length > 0){
       summary.push("");
-      summary.push("Details on how to resolve provided below");
+      summary.push("Details on how to resolve are provided below");
+      summary.push("");
+      summary.push("----");
+      summary.push("");
     }
 
     var resolutions = [];
     var comments = [];
 
-    comments.push(`### 🤖 ${AppConfig.appname} found ${result.Failure.length} problems,  ${result.Warning.length} warnings`);
+    comments.push(`## 🤖 ${AppConfig.appname} found ${result.Failure.length} ${_plural("problems", "problem", result.Failure.length)} ,  ${result.Warning.length} ${_plural("warnings", "warning", result.Warning.length)}`);
     comments.push(summary.join('\n'));  
     comments.push("");
 
@@ -91,6 +103,7 @@ async function handlePullRequestChange(context: Context) {
       resolutions.push(r.render());
       comments.push(r.render());
     }
+
     for(const r of result.Success){
       resolutions.push(r.render());
     }

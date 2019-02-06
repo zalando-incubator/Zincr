@@ -4,6 +4,7 @@ import { IResult } from "../interfaces/iresult";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { IResultSummary } from "../interfaces/iresultsummary";
 import { IAppConfig } from "../interfaces/config/iappconfig";
+import { IconEnum } from "../interfaces/IconEnum";
 
 export abstract class BaseTask<T> implements ITask {
   name = "";
@@ -53,40 +54,43 @@ export abstract class BaseTask<T> implements ITask {
     const icon = (status: StatusEnum)=>{
       switch (status) {
         case StatusEnum.Success:
-          return '✅'
+          return IconEnum.Success
         case StatusEnum.Failure:
-          return '❌'
+          return IconEnum.Failure
         case StatusEnum.Warning:
-          return '⚠️'
+          return IconEnum.Warning
         default:
           return 'ℹ️'
       }
     }
 
-    var status = "✅";
+    /*
+    var status = IconEnum.Success;
     if(this.summary().Warning.length > 0){
-      status = "⚠️";
+      status = IconEnum.Warning;
     }
     if(this.summary().Failure.length > 0){
-      status = "❌";
-    }
+      status = IconEnum.Failure;
+    }*/
 
     var resolutions = [];
 
     if(options.includeHeader){
-      resolutions.push(`### ${status} ${this.name}`);
+      resolutions.push(`## ${this.name}`);
       
       if(this.description && this.description !== ''){
         resolutions.push(`${this.description}`);
       }
 
       if(!this.success() && this.resolution && this.resolution !== ''){
+        resolutions.push(" ");
         resolutions.push(`**${this.resolution}**`); 
       }
     }
 
     if(this.result){
-      resolutions.push(" ");
+
+      resolutions.push("");
       for(const subResult of this.result){
           
           resolutions.push(`- ${(options.addCheckBox && subResult.result !== StatusEnum.Success) ? "[ ]" : ""} ${icon(subResult.result)} ${subResult.label}`);
@@ -96,7 +100,8 @@ export abstract class BaseTask<T> implements ITask {
           }
       }
     }
-
+    
+    resolutions.push("&nbsp;");
     return resolutions.join('\n');
   }
 }
