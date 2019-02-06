@@ -2,6 +2,7 @@ import { Context } from "probot";
 import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { IAppConfig } from "../interfaces/config/iappconfig";
+import { PullRequestsListFilesResponse } from "@octokit/rest";
 
 export default class LargeCommits extends BaseTask<any> { 
 
@@ -15,24 +16,14 @@ export default class LargeCommits extends BaseTask<any> {
   }
 
   async run(context: Context){
-    
-    //const author = context.payload.pull_request.user.login;
-    //const isOrgMember = await this.getOrgMembershipStatus(this.repo.owner, author, context);
+    let files = await this.getFiles(context);
+    var allFiles = files.filter(x => x.additions > this.config.maxLines || x.changes > this.config.maxLines );
 
-    let commits = await this.getCommits(context);
-    
-    var allFiles = commits
-                      .map((x: { files: any; }) => x.files);
-    
-    allFiles = [].concat.apply([], allFiles);
-    allFiles = allFiles.filter( file => file.additions > this.config.maxLines || file.changes > this.config.maxLines);
-    
     for(const file of allFiles){
-
       this.result.push({
         label: `[${file.filename}](/${this.repo.owner}/${this.repo.repo}/pull/${context.payload.pull_request.number}/commits/${file.sha}) had +${this.config.maxLines} lines of code changed in a single commit`,
         result: StatusEnum.Warning,
-        description: "Please review this commit to determine the source of this change"
+        description: "Please review this file to determine the source of this change"
       });
     }
     
@@ -43,20 +34,23 @@ export default class LargeCommits extends BaseTask<any> {
     return self.indexOf(value) === index;
   }
 
-  async getCommits(context: Context) {
+  async getFiles(context: Context) : Promise<PullRequestsListFilesResponse> {
 
-    const response = await context.github.pullRequests.listCommits({
+    const response = await context.github.pullRequests.listFiles({
       owner: context.payload.repository.owner.login,
       repo: context.payload.repository.name,
       number: context.payload.pull_request.number
     });
     
+    return response.data;
+
+    /*
     var commitReq = response.data.map(async commit => { 
       return (await context.github.repos.getCommit({ sha: commit.sha, repo: context.payload.repository.name, owner: context.payload.repository.owner.login })).data;
     });
 
     var commitData = await Promise.all(commitReq);
-    return commitData;
+    return commitData; */
   }
 
   async getOrgMembershipStatus(org: string, login: string, context : Context){
