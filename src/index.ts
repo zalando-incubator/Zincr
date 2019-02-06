@@ -6,6 +6,7 @@ export = (app: Application) => {
   const handlePullRequest = require("./pull-request-change");
   const setStatusPass = require("./set-status-pass");
 
+  app.router
   // Runs the check on all pull request and review events
   app.on(
     [

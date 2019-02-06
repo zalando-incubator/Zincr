@@ -21,7 +21,7 @@ export default class LargeCommits extends BaseTask<any> {
 
     for(const file of allFiles){
       this.result.push({
-        label: `[${file.filename}](/${this.repo.owner}/${this.repo.repo}/pull/${context.payload.pull_request.number}/commits/${file.sha}) had +${this.config.maxLines} lines of code changed in a single commit`,
+        label: `[${file.filename}](/${file.blob_url}) had +${this.config.maxLines} lines of code changed in a single commit`,
         result: StatusEnum.Warning,
         description: "Please review this file to determine the source of this change"
       });
