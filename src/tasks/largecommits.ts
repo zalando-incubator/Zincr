@@ -9,8 +9,8 @@ export default class LargeCommits extends BaseTask<any> {
     super(appconfig, config, repo); 
     
     this.name = "Large Commits";  
-    this.description =  "Checks commits for large additions to detect if code have been copied from an external source.";  
-    this.resolution = ``;
+    this.description =  "Checks all commits for large additions to a single file. Large commits should be reviewed more carefully for potential copyright and licensing issues";  
+    this.resolution = `This file contains a substantial change, please review to determine if the change comes from an external source and if there are any copyright or licensing issues to be aware of`;
     this.postAsComment = true;
   }
 
