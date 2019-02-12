@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@types/request-promise": "^4.1.42",
-    "license-lookup": "0.0.12",
+    "license-lookup": "0.0.13",
     "pom-parser": "^1.1.1",
     "probot": "^7.5.0",
     "request-promise": "^4.2.2"
