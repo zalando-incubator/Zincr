@@ -43,14 +43,6 @@ export default class LargeCommits extends BaseTask<any> {
     });
     
     return response.data;
-
-    /*
-    var commitReq = response.data.map(async commit => { 
-      return (await context.github.repos.getCommit({ sha: commit.sha, repo: context.payload.repository.name, owner: context.payload.repository.owner.login })).data;
-    });
-
-    var commitData = await Promise.all(commitReq);
-    return commitData; */
   }
 
   async getOrgMembershipStatus(org: string, login: string, context : Context){
