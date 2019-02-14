@@ -7,7 +7,8 @@ let AppConfig : IAppConfig= {
   appname:  "zincr",
   checkname:  "Zincr-bot",
   configfile: ".zincr.yml",
-  zapprfile: "../.zappr.yml"
+  zapprfile: "../.zappr.yml",
+  tasksdirectory: "./tasks/"
 };
 
 async function getTasksConfig(context : Context) : Promise<ITaskConfig> {
