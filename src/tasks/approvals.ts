@@ -3,6 +3,7 @@ import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { IAppConfig } from "../interfaces/config/iappconfig";
 
+
 export default class FourEyePrincipleTask extends BaseTask<any> { 
 
   constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
@@ -25,12 +26,11 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
     // if a reviewer modifies a PR and are then single-handedly able to approve his/hers own code into production. 
     // While this could lead to a review deadlock, this should be avoided by maintainers. 
     let coAuthors = await this.getCommitAuthors(context, author);
-    const coauthors_withreview = await this.dismissContributingReviewers(context, coAuthors);
+    const reviews = await this.getReviews(context, coAuthors, "approved");
 
     // get current approvals
-    let reviewers = await this.getReviewers(context, "approved");
-    approvals = reviewers.length;
-
+   
+    approvals = reviews.approvals.length;
     if(isOrgMember && this.config.includeAuthor){
       approvals++;
     }
@@ -39,8 +39,8 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
       return true;
     } 
 
-    if(coauthors_withreview.length > 0){
-      desc = `The reviews from ${coauthors_withreview.map(x => "@"+x).join(", ")} are exclude as the pull request contains changes from those users`;
+    if(reviews.contributing.length > 0){
+      desc = `The reviews from ${reviews.contributing.map(x => "@"+x).join(", ")} are excluded as the pull request contains changes from those users`;
     }
 
     this.result.push({
@@ -72,7 +72,7 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
       .filter(this.unique)
   }
 
-  async dismissContributingReviewers(context: Context, coauthors : Array<string>) {
+  async getReviews(context: Context, coauthors : Array<string>, state : string) : Promise<{approvals: Array<string>, contributing: Array<string>}> {
     
     const response = await context.github.pullRequests.listReviews({
       owner: context.payload.repository.owner.login,
@@ -80,8 +80,12 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
       number: context.payload.pull_request.number
     });
     
-    const result : Array<string> = [];
-    const contributingReviews = response.data.filter(review => review.state === "APPROVED" &&  coauthors.indexOf(review.user.login) >= 0);
+    var reviews = response.data
+      .filter(x => x.state.toLowerCase() === state);
+
+    const contributingReviews = reviews.filter(review => coauthors.indexOf(review.user.login) >= 0);
+    const non_contributingReviews = reviews.filter(review => coauthors.indexOf(review.user.login) < 0);
+    
     for (const review of contributingReviews) {
 
       await context.github.pullRequests.dismissReview({ 
@@ -91,25 +95,14 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
         review_id: review.id ,
         message: `@${review.user.login} is contributing to this pull request and can therefore not review the proposed changes`
       }); 
-
-      result.push(review.user.login);
     }
 
-    return result.filter(this.unique);
+    return {
+              contributing: contributingReviews.map(x => x.user.login).filter(this.unique), 
+              approvals: non_contributingReviews.map(x => x.user.login).filter(this.unique)
+          };
   }
 
-  async getReviewers(context: Context, state: String) {
-    const response = await context.github.pullRequests.listReviews({
-      owner: context.payload.repository.owner.login,
-      repo: context.payload.repository.name,
-      number: context.payload.pull_request.number
-    });
-    
-    return response.data
-      .filter(x => x.state.toLowerCase() === state)
-      .map(review  => review.user.login)
-      .filter(this.unique);
-  }
 
   async getOrgMembershipStatus(org: string, login: string, context : Context){
     let isOrgMember = false;
