@@ -17,7 +17,7 @@
     "dev": "npm build; nodemon --inspect --exec \"probot run ./lib/index.js\"",
     "start": "probot run ./lib/index.js",
     "lint": "standard **/*.ts --fix",
-    "test": "jest && standard **/*.ts",
+    "test": "jest **/*.ts",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
