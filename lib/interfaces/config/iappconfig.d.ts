@@ -3,4 +3,5 @@ export interface IAppConfig {
     checkname: string;
     configfile: string;
     zapprfile: string;
+    tasksdirectory: string;
 }
