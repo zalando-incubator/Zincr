@@ -1,18 +1,5 @@
 version: "1"
-
 services:
-  zincr-local:
-    build: .
-    container_name: zincr-local-dev
-    ports:
-      - "3000:3000"
-    environment:
-      - LOG_LEVEL=debug
-      - NODE_ENV=development
-      - WEBHOOK_PROXY_URL=https://smee.io/nkSaGhie3ZuPu7Qn
-      - WEBHOOK_SECRET=development
-      - APP_ID=25292
-      - PRIVATE_KEY=${KEY}
   zincr:
     build: .
     container_name: zincr-app
@@ -20,6 +7,6 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - WEBHOOK_SECRET=development
-      - APP_ID=17372
+      - APP_ID=${APP_ID}
       - PRIVATE_KEY=${KEY}
+      - WEBHOOK_SECRET=${SECRET}     
