@@ -17,14 +17,16 @@ export abstract class BaseTask<T> implements ITask {
   appconfig : IAppConfig;
   config : T;
   repo: {repo: string, owner: string};
+  organization: string | undefined;
 
   private _summary : IResultSummary | null = null;
   
-  constructor(appconfig: IAppConfig, config: T, repo: {repo: string, owner: string}) {
+  constructor(appconfig: IAppConfig, config: T, repo: {repo: string, owner: string}, organization: string | undefined) {
     this.appconfig = appconfig;
     this.config = config; 
     this.repo = repo;
     this.result = new Array<IResult>();
+    this.organization = organization;
   }
 
   async run(context: Context){

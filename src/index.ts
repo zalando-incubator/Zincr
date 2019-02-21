@@ -14,7 +14,12 @@ export = (app: Application) => {
   async function processPullRequest(context : Context) {
     const repo = context.repo();
     const config = await getTasksConfig(context);
-    var zincr = new Zincr(AppConfig, config, repo);
+    let org = undefined;
+    if(context.payload.repository.organization){
+      org = context.payload.repository.organization.login;
+    }
+
+    var zincr = new Zincr(AppConfig, config, repo, org);
     await zincr.onChange(context); 
   }
 };

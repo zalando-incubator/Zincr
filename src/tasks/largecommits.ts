@@ -6,8 +6,8 @@ import { PullRequestsListFilesResponse } from "@octokit/rest";
 
 export default class LargeCommits extends BaseTask<any> { 
 
-  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
-    super(appconfig, config, repo); 
+  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}, organization: string | undefined) {
+    super(appconfig, config, repo, organization); 
     
     this.name = "Large Commits";  
     this.description =  "Checks all commits for large additions to a single file. Large commits should be reviewed more carefully for potential copyright and licensing issues";  

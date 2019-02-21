@@ -7,8 +7,8 @@ import Lookup from "../license/lookup";
 
 export default class LicenseTask extends BaseTask<ILicenseConfig> {
     
-  constructor(appconfig : IAppConfig, config : ILicenseConfig, repo: {repo: string, owner: string}) {
-    super(appconfig, config, repo); 
+  constructor(appconfig : IAppConfig, config : ILicenseConfig, repo: {repo: string, owner: string}, organization: string | undefined) {
+    super(appconfig, config, repo, organization); 
 
     this.name = "Dependency Licensing";  
     this.description =  "All dependencies specified in package manager files must be reviewed, banned dependency licenses will block the merge, all new dependencies introduced in this pull request will give a warning, but not block the merge";

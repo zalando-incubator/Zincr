@@ -26,7 +26,7 @@ async function repositoryAdded(context: Context) {
                     enabled: true
                   };
                   
-      const licenseTask = new LicenseTask(AppConfig, licfg, repo);
+      const licenseTask = new LicenseTask(AppConfig, licfg, repo, undefined);
       licenseTask.description = "Dependencies found in the current codebase";
 
       await licenseTask.run(context);
