@@ -23,13 +23,17 @@ describe("zincr", () => {
     var zincr = new Zincr(AppConfig, config, {
       repo: "rest",
       owner: "zalando"
-    });
+    }, "zalando");
 
     expect(zincr.runner.tasks.length).toBe(1);
+    expect(zincr.runner.organization).toBe("zalando");
+
     expect(zincr.runner.tasks[0][0]).toBe("approvals");
+
     expect(zincr.appconfig).toMatchObject(AppConfig);
     expect(zincr.taskconfig).toMatchObject(config);
     expect(zincr.repo).toMatchObject({ repo: "rest", owner: "zalando" });
+    expect(zincr.organization).toBe("zalando");
 
     done();
   });
@@ -49,7 +53,7 @@ describe("zincr", () => {
           }
         };
 
-        var zincr = new Zincr(AppConfig, config, repo);
+        var zincr = new Zincr(AppConfig, config, repo, "robotland");
         await zincr.onChange(context);
       });
     });

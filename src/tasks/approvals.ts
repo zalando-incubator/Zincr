@@ -6,8 +6,8 @@ import { IAppConfig } from "../interfaces/config/iappconfig";
 
 export default class FourEyePrincipleTask extends BaseTask<any> { 
 
-  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
-    super(appconfig, config, repo); 
+  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}, organization: string | undefined) {
+    super(appconfig, config, repo, organization); 
     
     this.name = "Approvals";  
     this.description =  "All proposed changes must be reviewed by project maintainers before they can be merged";  
