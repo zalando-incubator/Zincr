@@ -26,7 +26,7 @@ describe("zincr approvals", () => {
     var repo = {repo: "test", owner: "robotland"};
     
     context = new Context(event, GitHubAPI(), {} as any);
-    task = new Approvals(AppConfig, config, repo);
+    task = new Approvals(AppConfig, config, repo, "robotland");
   })  
 
   test("Zincr can bootstrap the approvals tasks", async done => {
@@ -76,6 +76,7 @@ describe("zincr approvals", () => {
 
   test("1 review for non-employee returns failure", async done => {
 
+    // looks up if the PR author is a member of the robotland org
     nock("https://api.github.com")
       .get("/orgs/robotland/memberships/bkeepers")
       .reply(404);
