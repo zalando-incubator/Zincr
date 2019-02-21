@@ -6,7 +6,7 @@ export default class LicenseTask extends BaseTask<ILicenseConfig> {
     constructor(appconfig: IAppConfig, config: ILicenseConfig, repo: {
         repo: string;
         owner: string;
-    });
+    }, organization: string | undefined);
     checkComments(context: Context, pull: any): Promise<import("@octokit/rest").IssuesListCommentsResponseItem | undefined>;
     run(context: Context): Promise<boolean>;
 }

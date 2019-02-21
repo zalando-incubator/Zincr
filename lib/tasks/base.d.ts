@@ -15,11 +15,12 @@ export declare abstract class BaseTask<T> implements ITask {
         repo: string;
         owner: string;
     };
+    organization: string | undefined;
     private _summary;
     constructor(appconfig: IAppConfig, config: T, repo: {
         repo: string;
         owner: string;
-    });
+    }, organization: string | undefined);
     run(context: Context): Promise<boolean>;
     summary(): IResultSummary;
     success(): boolean;
