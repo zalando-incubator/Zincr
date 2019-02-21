@@ -3,6 +3,7 @@ import { ITask } from "./interfaces/itask";
 import { IAppConfig } from "./interfaces/config/iappconfig";
 import { ITaskConfig } from "./interfaces/config/itaskconfig";
 import { Context } from "probot";
+import { BaseTask } from "./tasks/base";
 
 export class TaskRunner {
   
@@ -20,8 +21,9 @@ export class TaskRunner {
     this.organization = organization;
   }
 
-  async run(context: Context) : Promise<ITaskRunnerResults>{
-    const results = new Array<ITask>();
+  async loadRunners() : Promise< Array<BaseTask<any>> >{
+    
+    const runners = new Array<BaseTask<any>>();
 
     for(const task of this.tasks){
       
@@ -31,11 +33,28 @@ export class TaskRunner {
       try{
         // The 2019 winner of the most wonderful syntax award... 
         //wanted to cast this as basetask, but seems impossible since we cannot load a type dynamicly into a generic
-        var t : any = new ((await import(this.appconfig.tasksdirectory + taskname)).default)(this.appconfig, tConfig, this.repo, this.organization);
+        
+        var t : BaseTask<any> = new ((await import(this.appconfig.tasksdirectory + taskname)).default)(this.appconfig, tConfig, this.repo, this.organization);
         if(t !== null){
-          await t.run(context);
-          results.push(t);
+          runners.push(t);
         }
+
+      }catch(ex){
+        console.log(ex);
+      }
+    }
+    
+    return runners;
+  }
+
+  async run(context: Context) : Promise<ITaskRunnerResults>{
+    const results = new Array<ITask>();
+    const runners = await this.loadRunners();
+    
+    for(const runner of runners){
+      try{
+        await runner.run(context);
+        results.push(runner);
       }catch(ex){
         console.log(ex);
       }
