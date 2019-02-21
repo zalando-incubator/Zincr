@@ -10,16 +10,19 @@ export class Zincr {
   taskconfig: ITaskConfig;
   repo: { repo: string; owner: string };
   runner: TaskRunner;
+  organization: string | undefined;
 
   constructor(
     appconfig: IAppConfig,
     taskconfig: ITaskConfig,
-    repo: { repo: string; owner: string }
+    repo: { repo: string; owner: string },
+    organization: string | undefined
   ) {
     this.appconfig = appconfig;
     this.taskconfig = taskconfig;
     this.repo = repo;
-    this.runner = new TaskRunner(this.appconfig, this.taskconfig, this.repo);
+    this.organization = organization;
+    this.runner = new TaskRunner(this.appconfig, this.taskconfig, this.repo, this.organization);
   }
 
   async onChange(context: Context) {

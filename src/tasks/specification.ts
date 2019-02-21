@@ -11,8 +11,8 @@ const URL_PATTERN = /\bhttps?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2
 
 export default class SpecificationTask extends BaseTask<any> {
     
-  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
-    super(appconfig, config, repo); 
+  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}, organization: string | undefined) {
+    super(appconfig, config, repo, organization); 
     this.name = "Specification";  
     this.description =  "All pull requests must follow certain rules for content length and form";
     this.resolution = `Please ensure the follow issues are resolved:`;
