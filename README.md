@@ -119,7 +119,10 @@ largecommits:
 ```
 
 ## Setup
+Use either npm, VSCode or docker to run the bot locally 
 
+
+### Npm
 ```sh
 # Install dependencies
 npm install
@@ -130,6 +133,17 @@ npm run build
 # Run the bot
 npm start
 ```
+
+### VS Code
+There are 2 Vs Code configurations included, a jest config to run all tests, and a task to run a local probot with a Vs Code attached debugger - open the VSCode debugger and choose "Launch Probot" 
+
+### Docker
+Using docker, you can launch a local smee connected instance of the bot, ensure that you change the docker-compose file config for App ID and smee url before running. also, the docker script expect there is a prod.pem file in the root of the project/ 
+
+```
+docker-compose up zincr
+```
+
 
 ## Contributing
 
