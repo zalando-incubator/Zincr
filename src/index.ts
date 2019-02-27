@@ -4,6 +4,8 @@ import { Zincr } from "./zincr";
 
 export = (app: Application) => {
   
+  console.log(process.env);
+  
   const setStatusPass = require("./set-status-pass");
   const events = ["pull_request", "pull_request_review"];
   
