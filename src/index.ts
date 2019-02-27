@@ -2,6 +2,8 @@ import { Application, Context } from "probot";
 import { AppConfig, getTasksConfig } from "./config/app"
 import { Zincr } from "./zincr";
 
+console.log(process.env);
+
 export = (app: Application) => {
   
   const setStatusPass = require("./set-status-pass");
