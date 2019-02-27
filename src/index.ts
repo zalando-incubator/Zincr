@@ -2,7 +2,7 @@ import { Application, Context } from "probot";
 import { AppConfig, getTasksConfig } from "./config/app"
 import { Zincr } from "./zincr";
 
-console.log(process.env)
+console.log(process.env);
 
 export = (app: Application) => {
   
