@@ -1,5 +1,5 @@
 {
-  "name": "4-eyesbot",
+  "name": "Zincr",
   "version": "1.0.0",
   "description": "A Probot app",
   "author": "Per Ploug <per.ploug@zalando.de>",
@@ -21,13 +21,13 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "@types/request-promise": "^4.1.42",
     "license-lookup": "0.0.13",
     "pom-parser": "^1.1.1",
     "probot": "^7.5.0",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
+    "@types/request-promise": "^4.1.42",
     "@types/jest": "^23.3.14",
     "@types/nock": "^9.3.1",
     "@types/node": "^10.12.21",
