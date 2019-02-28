@@ -34,5 +34,5 @@ build_steps:
         IMAGE_NAME="registry-write.opensource.zalan.do/opensource/zincr-pr-test:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
       fi
       
-      docker build -t "${IMAGE_NAME}"
+      docker build --rm -t "${IMAGE_NAME}" .
       docker push "${IMAGE_NAME}"
