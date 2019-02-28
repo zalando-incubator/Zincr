@@ -5,6 +5,16 @@ build_steps:
       chmod +x /tmp/ensure-docker
       /tmp/ensure-docker
 
+  - desc: Test
+    cmd: |
+      function npm {
+        docker run -i --rm -v "$(pwd):/workspace" -w /workspace registry.opensource.zalan.do/stups/node:latest npm "$@"
+      }
+
+      npm install typescript
+      npm install --no-optional
+      npm run test
+      
   - desc: Build
     cmd: |
       function npm {
@@ -15,16 +25,6 @@ build_steps:
       npm install --no-optional
       npm run build
   
-  - desc: Test
-    cmd: |
-      function npm {
-        docker run -i --rm -v "$(pwd):/workspace" -w /workspace registry.opensource.zalan.do/stups/node:latest npm "$@"
-      }
-
-      npm install typescript
-      npm install --no-optional
-      npm run test
-
   - desc: Publish Docker image
     cmd: |
       COMMIT_ID="$(git log --format='%H' -n 1 | cut -c 1-7)"
@@ -33,5 +33,6 @@ build_steps:
       else
         IMAGE_NAME="registry-write.opensource.zalan.do/opensource/zincr-pr-test:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
       fi
-      docker build -t "${IMAGE_NAME}" .
+      
+      docker build --no-cache --rm -t "${IMAGE_NAME}"
       docker push "${IMAGE_NAME}"
