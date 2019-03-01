@@ -2,13 +2,13 @@ import { Context } from "probot";
 import { BaseTask } from "./base";
 import { PullRequestsGetResponse } from "@octokit/rest";
 import { ILicenseConfig } from "../interfaces/config/ilicenseconfig";
-import { IAppConfig } from "../interfaces/config/iappconfig";
 import Lookup from "../license/lookup";
+import { ITaskParams } from "../interfaces/params/itaskparams";
 
 export default class LicenseTask extends BaseTask<ILicenseConfig> {
     
-  constructor(appconfig : IAppConfig, config : ILicenseConfig, repo: {repo: string, owner: string}, organization: string | undefined) {
-    super(appconfig, config, repo, organization); 
+  constructor(params : ITaskParams<ILicenseConfig>) {
+    super(params); 
 
     this.name = "Dependency Licensing";  
     this.description =  "All dependencies specified in package manager files must be reviewed, banned dependency licenses will block the merge, all new dependencies introduced in this pull request will give a warning, but not block the merge";

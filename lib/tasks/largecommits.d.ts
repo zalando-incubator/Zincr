@@ -1,12 +1,9 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
-import { IAppConfig } from "../interfaces/config/iappconfig";
 import { PullRequestsListFilesResponse } from "@octokit/rest";
+import { ITaskParams } from "../interfaces/params/itaskparams";
 export default class LargeCommits extends BaseTask<any> {
-    constructor(appconfig: IAppConfig, config: any, repo: {
-        repo: string;
-        owner: string;
-    }, organization: string | undefined);
+    constructor(params: ITaskParams<any>);
     run(context: Context): Promise<boolean>;
     unique: (value: any, index: number, self: any[]) => boolean;
     getFiles(context: Context): Promise<PullRequestsListFilesResponse>;

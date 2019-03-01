@@ -3,7 +3,8 @@ import { Context } from "probot";
 import { IResult } from "../interfaces/iresult";
 import { IResultSummary } from "../interfaces/iresultsummary";
 import { IAppConfig } from "../interfaces/config/iappconfig";
-export declare abstract class BaseTask<T> implements ITask {
+import { ITaskParams } from "../interfaces/params/itaskparams";
+export declare abstract class BaseTask<T> implements ITask<T> {
     name: string;
     description: string;
     resolution: string;
@@ -15,12 +16,9 @@ export declare abstract class BaseTask<T> implements ITask {
         repo: string;
         owner: string;
     };
-    organization: string | undefined;
+    organization: string | null;
     private _summary;
-    constructor(appconfig: IAppConfig, config: T, repo: {
-        repo: string;
-        owner: string;
-    }, organization: string | undefined);
+    constructor(params: ITaskParams<T>);
     run(context: Context): Promise<boolean>;
     summary(): IResultSummary;
     success(): boolean;
