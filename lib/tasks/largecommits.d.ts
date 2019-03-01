@@ -6,7 +6,7 @@ export default class LargeCommits extends BaseTask<any> {
     constructor(appconfig: IAppConfig, config: any, repo: {
         repo: string;
         owner: string;
-    });
+    }, organization: string | undefined);
     run(context: Context): Promise<boolean>;
     unique: (value: any, index: number, self: any[]) => boolean;
     getFiles(context: Context): Promise<PullRequestsListFilesResponse>;

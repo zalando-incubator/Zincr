@@ -10,10 +10,11 @@ export declare class Zincr {
         owner: string;
     };
     runner: TaskRunner;
+    organization: string | undefined;
     constructor(appconfig: IAppConfig, taskconfig: ITaskConfig, repo: {
         repo: string;
         owner: string;
-    });
+    }, organization: string | undefined);
     onChange(context: Context): Promise<void>;
     setStatusPass(context: Context): Promise<import("@octokit/rest").Response<import("@octokit/rest").ChecksCreateResponse>>;
 }

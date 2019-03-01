@@ -81,6 +81,7 @@ describe("zincr", () => {
   });
 
 
+  
   test("Probot bootstraps Zincr with single task configuration", async done => {
     let probot = new Probot({});
     const runningBot = probot.load((app: Application) => {
@@ -110,10 +111,14 @@ describe("zincr", () => {
       .reply(200, { token: "test" });
 
     nock("https://api.github.com")
+      .persist(true)
       .post(
         "/repos/robotland/test/check-runs",
         (body: ChecksUpdateResponse) => {
           body.completed_at = "2018-07-14T18:18:54.156Z";
+
+          console.log("wooop");
+          
           expect(body.status).toBe("in_progress");
 
           done();
@@ -124,5 +129,5 @@ describe("zincr", () => {
     await probot.receive({ name: "pull_request", payload });
     
   });
-
+  
 });
