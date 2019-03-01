@@ -2,12 +2,9 @@ largecommits :
   enabled: false
 
 approvals: 
-  includeAuthor: true
+  includeAuthor: false
   minimum: 2
   enabled: true
 
-specification:
-  enabled: false
-
-license :
-  enabled: false
+X-Zalando-Type: doc
+X-Zalando-Team: opensource
