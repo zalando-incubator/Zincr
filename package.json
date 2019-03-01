@@ -1,7 +1,7 @@
 {
   "name": "Zincr",
-  "version": "1.0.0",
-  "description": "A Probot app",
+  "version": "1.0.2",
+  "description": "Compliance Bot for Zalando",
   "author": "Per Ploug <per.ploug@zalando.de>",
   "license": "MIT",
   "repository": "https://github.com/perploug/4-eyesbot.git",
