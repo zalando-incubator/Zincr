@@ -5,7 +5,9 @@ import { GitHubAPI } from "probot/lib/github";
 import nock = require("nock");
 import { StatusEnum } from "../src/interfaces/StatusEnum";
 
+
 nock.disableNetConnect();
+jest.setTimeout(10000);
 
 let task : Approvals, context : Context;
 
@@ -26,7 +28,7 @@ describe("zincr approvals", () => {
     var repo = {repo: "test", owner: "robotland"};
     
     context = new Context(event, GitHubAPI(), {} as any);
-    task = new Approvals(AppConfig, config, repo);
+    task = new Approvals( {appconfig:AppConfig, config, repo, organization: "robotland"});
   })  
 
   test("Zincr can bootstrap the approvals tasks", async done => {
@@ -36,11 +38,13 @@ describe("zincr approvals", () => {
     done();
   })
 
+  
+  
   test("No reviews returns failure", async done => {
 
     nock("https://api.github.com")
-      .get("/repos/robotland/test/pulls/113/commits")
-      .reply(200,  [] );
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  {commits: [] });
 
     nock("https://api.github.com")
       .get("/repos/robotland/test/pulls/113/reviews")
@@ -52,7 +56,7 @@ describe("zincr approvals", () => {
   
     done();
   })
-
+  
   test("2 reviews for non-employee returns success", async done => {
 
     nock("https://api.github.com")
@@ -60,8 +64,8 @@ describe("zincr approvals", () => {
       .reply(404);
 
     nock("https://api.github.com")
-      .get("/repos/robotland/test/pulls/113/commits")
-      .reply(200,  [] );
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  {commits: [] });
 
     nock("https://api.github.com")
       .get("/repos/robotland/test/pulls/113/reviews")
@@ -76,13 +80,15 @@ describe("zincr approvals", () => {
 
   test("1 review for non-employee returns failure", async done => {
 
+    // looks up if the PR author is a member of the robotland org
     nock("https://api.github.com")
       .get("/orgs/robotland/memberships/bkeepers")
       .reply(404);
 
+
     nock("https://api.github.com")
-      .get("/repos/robotland/test/pulls/113/commits")
-      .reply(200,  [] );
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  {commits: []} );
 
     nock("https://api.github.com")
       .get("/repos/robotland/test/pulls/113/reviews")
@@ -96,6 +102,7 @@ describe("zincr approvals", () => {
     done();
   })
 
+  
   test("1 review + employee returns success", async done => {
 
     nock("https://api.github.com")
@@ -103,8 +110,8 @@ describe("zincr approvals", () => {
       .reply(200,  {state: "active"} );
 
     nock("https://api.github.com")
-      .get("/repos/robotland/test/pulls/113/commits")
-      .reply(200,  [] );
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  {commits: []} );
 
     nock("https://api.github.com")
       .get("/repos/robotland/test/pulls/113/reviews")
@@ -116,6 +123,7 @@ describe("zincr approvals", () => {
 
     done();
   })
+  
 
   test("review by co-author returns failure", async done => {
 
@@ -124,8 +132,8 @@ describe("zincr approvals", () => {
       .reply(200,  {state: "active"} );
 
     nock("https://api.github.com")
-      .get("/repos/robotland/test/pulls/113/commits")
-      .reply(200,  [{author: {login: "a"}, commit: { message: 'change' }}] );
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  {commits: [{author: {login: "a"}, commit: {committer: {login: "a"}, message: 'change' }}]} );
 
     nock("https://api.github.com")
       .get("/repos/robotland/test/pulls/113/reviews")
@@ -134,7 +142,7 @@ describe("zincr approvals", () => {
     nock("https://api.github.com")
       .put("/repos/robotland/test/pulls/113/reviews/666/dismissals")
       .reply(200,  {} );
-
+      
     await task.run(context);
     
     expect(task.result.length).toBe(1);
@@ -142,7 +150,7 @@ describe("zincr approvals", () => {
 
     done();
   })
-
+ 
   test("review by co-author and non-author returns success", async done => {
 
     nock("https://api.github.com")
@@ -150,8 +158,8 @@ describe("zincr approvals", () => {
       .reply(200,  {state: "active"} );
 
     nock("https://api.github.com")
-      .get("/repos/robotland/test/pulls/113/commits")
-      .reply(200,  [{author: {login: "a"}, commit: { message: 'change' }}] );
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  {commits:  [{author: {login: "a"}, commit: {committer: {login: "a"}, message: 'change' }}]} );
 
     nock("https://api.github.com")
       .get("/repos/robotland/test/pulls/113/reviews")
@@ -166,4 +174,6 @@ describe("zincr approvals", () => {
     
     done();
   })
+  
+
 });

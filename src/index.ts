@@ -1,6 +1,7 @@
 import { Application, Context } from "probot";
 import { AppConfig, getTasksConfig } from "./config/app"
 import { Zincr } from "./zincr";
+import { IAppParams } from "./interfaces/params/iappparams";
 
 console.log(process.env);
 
@@ -21,9 +22,19 @@ export = (app: Application) => {
   app.on('check_run.requested_action', setStatusPass)
 
   async function processPullRequest(context : Context) {
-    const repo = context.repo();
-    const config = await getTasksConfig(context);
-    var zincr = new Zincr(AppConfig, config, repo);
+    
+    const params : IAppParams = {
+      repo: context.repo(),
+      organization: null,
+      taskconfig: await getTasksConfig(context), 
+      appconfig: AppConfig
+    };
+
+    if(context.payload.repository.organization && context.payload.repository.organization.login){
+      params.organization = context.payload.repository.organization.login;
+    }
+
+    var zincr = new Zincr(params);
     await zincr.onChange(context); 
   }
 };

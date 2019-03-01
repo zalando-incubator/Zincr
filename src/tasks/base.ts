@@ -5,8 +5,9 @@ import { StatusEnum } from "../interfaces/StatusEnum";
 import { IResultSummary } from "../interfaces/iresultsummary";
 import { IAppConfig } from "../interfaces/config/iappconfig";
 import { IconEnum } from "../interfaces/IconEnum";
+import { ITaskParams } from "../interfaces/params/itaskparams";
 
-export abstract class BaseTask<T> implements ITask {
+export abstract class BaseTask<T> implements ITask<T> {
   name = "";
   description = "";
   resolution = "";
@@ -17,14 +18,16 @@ export abstract class BaseTask<T> implements ITask {
   appconfig : IAppConfig;
   config : T;
   repo: {repo: string, owner: string};
+  organization: string | null;
 
   private _summary : IResultSummary | null = null;
   
-  constructor(appconfig: IAppConfig, config: T, repo: {repo: string, owner: string}) {
-    this.appconfig = appconfig;
-    this.config = config; 
-    this.repo = repo;
+  constructor( params : ITaskParams<T> ) {
+    this.appconfig = params.appconfig;
+    this.config = params.config; 
+    this.repo = params.repo;
     this.result = new Array<IResult>();
+    this.organization = params.organization;
   }
 
   async run(context: Context){

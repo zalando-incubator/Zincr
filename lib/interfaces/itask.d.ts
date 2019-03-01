@@ -1,7 +1,7 @@
 import { Context } from "probot";
 import { IResult } from "./iresult";
 import { IResultSummary } from "./iresultsummary";
-export interface ITask {
+export interface ITask<T> {
     name: string;
     description: string;
     resolution: string;

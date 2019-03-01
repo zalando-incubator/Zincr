@@ -1,13 +1,13 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
-import { IAppConfig } from "../interfaces/config/iappconfig";
 import { PullRequestsListFilesResponse } from "@octokit/rest";
+import { ITaskParams } from "../interfaces/params/itaskparams";
 
 export default class LargeCommits extends BaseTask<any> { 
 
-  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
-    super(appconfig, config, repo); 
+  constructor(params : ITaskParams<any>) {
+    super(params); 
     
     this.name = "Large Commits";  
     this.description =  "Checks all commits for large additions to a single file. Large commits should be reviewed more carefully for potential copyright and licensing issues";  

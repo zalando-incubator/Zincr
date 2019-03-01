@@ -54,10 +54,11 @@ This check is somewhat stricter than standard GitHub reviews as it will **dismis
 #### Config options:
 ```yaml
 approvals:
-  // true by default, if the author is a member of the org it counts towards the total count of approvals
+  // true by default, if the author is a member of the org it counts towards the total count of approvals, if the bot is running on a non-org repo, it will check if the author have write access to the repo. 
   includeAuthor: true
   
   // Number of people who must reviee and approved [default is 2]
+  // If include author is enabled this will count as a positive review
   minimum: 2
   enabled: true
  ```

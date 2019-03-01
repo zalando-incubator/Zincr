@@ -1,13 +1,11 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
-import { IAppConfig } from "../interfaces/config/iappconfig";
-
-
+import { ITaskParams } from "../interfaces/params/itaskparams";
 export default class FourEyePrincipleTask extends BaseTask<any> { 
 
-  constructor(appconfig : IAppConfig, config : any, repo: {repo: string, owner: string}) {
-    super(appconfig, config, repo); 
+  constructor(params : ITaskParams<any>) {
+    super(params); 
     
     this.name = "Approvals";  
     this.description =  "All proposed changes must be reviewed by project maintainers before they can be merged";  
@@ -18,7 +16,12 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
   async run(context: Context){
     
     const author = context.payload.pull_request.user.login;
-    const isOrgMember = await this.getOrgMembershipStatus(this.repo.owner, author, context);
+    let directCollaborator = false;
+
+    if(this.organization)
+      directCollaborator = await this.getOrgMembershipStatus(this.organization, author, context);
+    else
+      directCollaborator = await this.getRepoMembershipStatus(this.repo.owner, this.repo.repo, author, context);
 
     var approvals = 0;
     var desc = "";
@@ -31,7 +34,7 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
     // get current approvals
    
     approvals = reviews.approvals.length;
-    if(isOrgMember && this.config.includeAuthor){
+    if(directCollaborator && this.config.includeAuthor){
       approvals++;
     }
 
@@ -58,17 +61,25 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
   }
 
   async getCommitAuthors(context: Context, pr_author: string) {
+
+    const pr = context.payload.pull_request;
+    
+    const response = await context.github.repos.compareCommits({
+      ...this.repo, base: pr.base.sha, head: pr.head.sha
+    });
+    /*
     const response = await context.github.pullRequests.listCommits({
       owner: context.payload.repository.owner.login,
       repo: context.payload.repository.name,
       number: context.payload.pull_request.number
-    });
+    });*/
 
-    // get all contributin userds - except where the contribution is made via the suggestion feature, as this is reviwed
+    // get all contributin users - except where the contribution is made via the suggestion feature, as this is reviwed
     // by the original author before including - so co-authored commits can be exluded
-    return response.data
-      .filter(commit => commit.commit.message.indexOf(`Co-Authored-By: ${pr_author}`) < 0)
-      .map(commit  => commit.author.login)
+    return response.data.commits
+      .filter( (data : any)  => data.commit.message.indexOf(`Co-Authored-By: ${pr_author}`) < 0)
+      .filter( (data : any)  => (data.commit.committer.login !== 'Github' && data.commit.message.indexOf(`Merge branch '${pr.base.ref}' into`) < 0))
+      .map((commit : any)  => commit.author.login)
       .filter(this.unique)
   }
 
@@ -103,6 +114,12 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
           };
   }
 
+  async getRepoMembershipStatus(owner: string, repo: string, login: string, context : Context){
+    const response = await context.github.repos.getCollaboratorPermissionLevel({owner: owner, repo: repo, username: login });
+    const permission = response.data.permission;
+
+    return ( permission === "write" || permission === "admin"); 
+  }
 
   async getOrgMembershipStatus(org: string, login: string, context : Context){
     let isOrgMember = false;

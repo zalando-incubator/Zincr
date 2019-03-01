@@ -4,22 +4,21 @@ import { TaskRunner } from "./task-runner";
 import { IconEnum } from "./interfaces/IconEnum";
 import { ITaskConfig } from "./interfaces/config/itaskconfig";
 import { IAppConfig } from "./interfaces/config/iappconfig";
+import { IAppParams } from "./interfaces/params/iappparams";
 
 export class Zincr {
   appconfig: IAppConfig;
   taskconfig: ITaskConfig;
   repo: { repo: string; owner: string };
   runner: TaskRunner;
+  organization: string | null;
 
-  constructor(
-    appconfig: IAppConfig,
-    taskconfig: ITaskConfig,
-    repo: { repo: string; owner: string }
-  ) {
-    this.appconfig = appconfig;
-    this.taskconfig = taskconfig;
-    this.repo = repo;
-    this.runner = new TaskRunner(this.appconfig, this.taskconfig, this.repo);
+  constructor(params: IAppParams) {
+    this.appconfig = params.appconfig;
+    this.taskconfig = params.taskconfig;
+    this.repo = params.repo;
+    this.organization = params.organization;
+    this.runner = new TaskRunner( params);
   }
 
   async onChange(context: Context) {

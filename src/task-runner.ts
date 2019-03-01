@@ -3,6 +3,9 @@ import { ITask } from "./interfaces/itask";
 import { IAppConfig } from "./interfaces/config/iappconfig";
 import { ITaskConfig } from "./interfaces/config/itaskconfig";
 import { Context } from "probot";
+import { BaseTask } from "./tasks/base";
+import { ITaskParams } from "./interfaces/params/itaskparams";
+import { ITaskRunnerParams } from "./interfaces/params/itaskrunnerparams";
 
 export class TaskRunner {
   
@@ -10,16 +13,19 @@ export class TaskRunner {
   taskconfig : ITaskConfig;
   repo: {repo: string, owner: string};
   tasks : Array< [string, any] > ;
+  organization: string | null;
 
-  constructor(appconfig : IAppConfig, taskconfig : ITaskConfig, repo: {repo: string, owner: string}) {
-    this.appconfig = appconfig;
-    this.taskconfig = taskconfig;
-    this.repo = repo;
+  constructor(params : ITaskRunnerParams) {
+    this.appconfig = params.appconfig;
+    this.taskconfig = params.taskconfig;
+    this.repo = params.repo;
     this.tasks = Object.entries(this.taskconfig).filter(x => x[1].enabled);
+    this.organization = params.organization;
   }
 
-  async run(context: Context) : Promise<ITaskRunnerResults>{
-    const results = new Array<ITask>();
+  async loadRunners() : Promise< Array<BaseTask<any>> >{
+    
+    const runners = new Array<BaseTask<any>>();
 
     for(const task of this.tasks){
       
@@ -28,12 +34,34 @@ export class TaskRunner {
 
       try{
         // The 2019 winner of the most wonderful syntax award... 
-        //wanted to cast this as basetask, but seems impossible since we cannot load a type dynamicly into a generic
-        var t : any = new ((await import(this.appconfig.tasksdirectory + taskname)).default)(this.appconfig, tConfig, this.repo);
+        const params : ITaskParams<any> = {
+          appconfig: this.appconfig,
+          config: tConfig,
+          repo: this.repo,
+          organization: this.organization
+        };
+
+        var t : BaseTask<any> = new ((await import(this.appconfig.tasksdirectory + taskname)).default)(params);
         if(t !== null){
-          await t.run(context);
-          results.push(t);
+          runners.push(t);
         }
+
+      }catch(ex){
+        console.log(ex);
+      }
+    }
+    
+    return runners;
+  }
+
+  async run(context: Context) : Promise<ITaskRunnerResults>{
+    const results = new Array<ITask<any>>();
+    const runners = await this.loadRunners();
+    
+    for(const runner of runners){
+      try{
+        await runner.run(context);
+        results.push(runner);
       }catch(ex){
         console.log(ex);
       }
