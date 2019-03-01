@@ -1,0 +1,12 @@
+version: "1"
+services:
+  zincr:
+    build: .
+    container_name: zincr-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - APP_ID=${APP_ID}
+      - PRIVATE_KEY=${KEY}
+      - WEBHOOK_SECRET=${SECRET}     
