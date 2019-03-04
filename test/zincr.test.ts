@@ -4,6 +4,7 @@ import { AppConfig } from "../src/config/app";
 import { ChecksUpdateResponse } from "@octokit/rest";
 import { Probot, Application, Context } from "probot";
 import { TaskConfig } from "../src/config/tasks";
+import { IAppParams } from "../src/interfaces/params/iappparams";
 
 const payload = require("./fixtures/pr/opened.json");
 //const checkCreated = require("./fixtures/check/in-progress.json");
@@ -24,10 +25,17 @@ describe("zincr", () => {
       }
     };
 
-    var zincr = new Zincr(AppConfig, config, {
-      repo: "rest",
-      owner: "zalando"
-    }, "zalando");
+    var params : IAppParams = {
+      appconfig: AppConfig,
+      taskconfig: config,
+      repo: {
+        repo: "rest",
+        owner: "zalando"
+      },
+      organization: "zalando"
+    };
+    
+    var zincr = new Zincr(params);
 
     expect(zincr.runner.tasks.length).toBe(1);
     expect(zincr.runner.organization).toBe("zalando");
@@ -45,27 +53,36 @@ describe("zincr", () => {
 
   test("Zincr bootstraps standard configuration", async done => {
     
-    var taskConfig = TaskConfig;
-
-    var zincr = new Zincr(AppConfig, taskConfig, {
-      repo: "rest",
-      owner: "zalando"
-    }, "zalando");
+    var params : IAppParams = {
+      appconfig: AppConfig,
+      taskconfig: TaskConfig,
+      repo: {
+        repo: "rest",
+        owner: "zalando"
+      },
+      organization: "zalando"
+    };
+    var zincr = new Zincr(params);
 
     expect(zincr.runner.tasks.length).toBe(4);
     expect(zincr.appconfig).toMatchObject(AppConfig);
-    expect(zincr.taskconfig).toMatchObject(taskConfig);
+    expect(zincr.taskconfig).toMatchObject(TaskConfig);
     done();
   });
 
   test("Zincr taskrunner loads all runners", async done => {
     
-    var taskConfig = TaskConfig;
+    var params : IAppParams = {
+      appconfig: AppConfig,
+      taskconfig: TaskConfig,
+      repo: {
+        repo: "rest",
+        owner: "zalando"
+      },
+      organization: "zalando"
+    };
 
-    var zincr = new Zincr(AppConfig, taskConfig, {
-      repo: "rest",
-      owner: "zalando"
-    }, "zalando");
+    var zincr = new Zincr(params);
 
     expect(zincr.runner.tasks.length).toBe(4);
     const runners = await zincr.runner.loadRunners();
@@ -87,8 +104,7 @@ describe("zincr", () => {
     const runningBot = probot.load((app: Application) => {
       const events = ["pull_request", "pull_request_review"];
       app.on(events, async (context: Context) => {
-        const repo = { repo: "test", owner: "robotland" };
-
+        
         const config = {
           approvals: {
             includeAuthor: true,
@@ -97,7 +113,17 @@ describe("zincr", () => {
           }
         };
 
-        var zincr = new Zincr(AppConfig, config, repo, "robotland");
+        var params : IAppParams = {
+          appconfig: AppConfig,
+          taskconfig: config,
+          repo: {
+            repo: "test",
+            owner: "robotland"
+          },
+          organization: "robotland"
+        };
+
+        var zincr = new Zincr(params);
         await zincr.onChange(context);
 
       });
@@ -116,8 +142,6 @@ describe("zincr", () => {
         "/repos/robotland/test/check-runs",
         (body: ChecksUpdateResponse) => {
           body.completed_at = "2018-07-14T18:18:54.156Z";
-
-          console.log("wooop");
           
           expect(body.status).toBe("in_progress");
 

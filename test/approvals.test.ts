@@ -28,7 +28,7 @@ describe("zincr approvals", () => {
     var repo = {repo: "test", owner: "robotland"};
     
     context = new Context(event, GitHubAPI(), {} as any);
-    task = new Approvals(AppConfig, config, repo, "robotland");
+    task = new Approvals( {appconfig:AppConfig, config, repo, organization: "robotland"});
   })  
 
   test("Zincr can bootstrap the approvals tasks", async done => {
