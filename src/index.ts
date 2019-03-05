@@ -13,11 +13,11 @@ export = (app: Application) => {
   console.log("ENV VARS " + process.env);
   
   // This is used to debug passing of ENV variables to the docker image and should be included in production as it leasks secrets
-  // const router = app.route('/zincr')
+  const router = app.route('/zincr')
   // Add a new route
-  //router.get('/env', (req : any, res : any) => {
-  //  res.send(JSON.stringify(process.env));
-  //});
+  router.get('/env', (req : any, res : any) => {
+    res.send(JSON.stringify(process.env));
+  });
 
   // Runs the check on all pull request and review events
   app.on(events, processPullRequest);
