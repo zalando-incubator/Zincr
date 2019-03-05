@@ -10,8 +10,10 @@ export = (app: Application) => {
   const setStatusPass = require("./set-status-pass");
   const events = ["pull_request", "pull_request_review"];
   
+  console.log("ENV VARS " + process.env);
+  
   // This is used to debug passing of ENV variables to the docker image and should be included in production as it leasks secrets
-  //const router = app.route('/zincr')
+  // const router = app.route('/zincr')
   // Add a new route
   //router.get('/env', (req : any, res : any) => {
   //  res.send(JSON.stringify(process.env));
