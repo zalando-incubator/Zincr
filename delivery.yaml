@@ -29,9 +29,9 @@ build_steps:
     cmd: |
       COMMIT_ID="$(git log --format='%H' -n 1 | cut -c 1-7)"
       if [[ "${CDP_TARGET_BRANCH}" = "master" && -z "${CDP_PULL_REQUEST_NUMBER}" ]]; then
-        IMAGE_NAME="registry-write.opensource.zalan.do/opensource/zincr:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
+        IMAGE_NAME="registry-write.opensource.zalan.do/security/zincr:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
       else
-        IMAGE_NAME="registry-write.opensource.zalan.do/opensource/zincr-pr-test:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
+        IMAGE_NAME="registry-write.opensource.zalan.do/security/zincr-pr-test:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
       fi
       
       docker build --rm -t "${IMAGE_NAME}" .
