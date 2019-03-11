@@ -2,6 +2,7 @@ import { Context } from "probot";
 import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { ITaskParams } from "../interfaces/params/itaskparams";
+import { plural } from "../plural";
 export default class FourEyePrincipleTask extends BaseTask<any> { 
 
   constructor(params : ITaskParams<any>) {
@@ -9,7 +10,7 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
     
     this.name = "Approvals";  
     this.description =  "All proposed changes must be reviewed by project maintainers before they can be merged";  
-    this.resolution = `Not enough people have approved this pull request - please ensure that atleast XXX users who have not contributed to this pull request approve the changes.`;
+    this.resolution = `Not enough people have approved this pull request - please ensure that XXX additional user(s) who have not contributed to this pull request approve the changes.`;
     this.postAsComment = true;
   }
 
@@ -24,7 +25,7 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
       directCollaborator = await this.getRepoMembershipStatus(this.repo.owner, this.repo.repo, author, context);
 
     var approvals = 0;
-    var desc = "";
+   
     // exclude PR co-authors as a valid reviewer - this is an edge case, but it can happen
     // if a reviewer modifies a PR and are then single-handedly able to approve his/hers own code into production. 
     // While this could lead to a review deadlock, this should be avoided by maintainers. 
@@ -34,25 +35,41 @@ export default class FourEyePrincipleTask extends BaseTask<any> {
     // get current approvals
    
     approvals = reviews.approvals.length;
+
     if(directCollaborator && this.config.includeAuthor){
+      this.result.push({
+        label: `Approved by PR author @${author}`,
+        result: StatusEnum.Success
+      })
       approvals++;
     }
 
-    if(approvals >= this.config.minimum){
-      return true;
-    } 
-
-    if(reviews.contributing.length > 0){
-      desc = `The reviews from ${reviews.contributing.map(x => "@"+x).join(", ")} are excluded as the pull request contains changes from those users`;
+    for(const apr of reviews.approvals){
+      this.result.push({
+        label: `Approved by team member @${apr}`,
+        result: StatusEnum.Success
+      })
     }
 
-    this.result.push({
-        label: `${approvals} approvals of ${this.config.minimum} required ${this.config.includeAuthor ? "(Including author of this pull request)" : ""}`,
-        result: (approvals >= this.config.minimum) ? StatusEnum.Success : StatusEnum.Failure,
-        description: desc
-    });
+    if(reviews.contributing.length > 0){
+      this.result.push({
+        label: `${plural('Approvals', 'Approval', reviews.contributing.length)} from ${reviews.contributing.map(x => "@"+x).join(", ")} was excluded as the pull request contains changes from ${plural('those users', 'this user', reviews.contributing.length)}`,
+        result: StatusEnum.Warning
+      })
+    }
 
-    this.resolution = this.resolution.replace('XXX', this.config.minimum.toString());
+    if(approvals < this.config.minimum){
+      var missingApprovals = this.config.minimum - approvals;
+
+      this.result.push({
+        label: `${missingApprovals} additional ${plural('approvals', 'approval', missingApprovals)} needed`,
+        result: StatusEnum.Failure
+      });
+
+      this.resolution = this.resolution.replace('XXX', missingApprovals.toString());
+    }
+
+   
     return true;
   }
 

@@ -5,6 +5,7 @@ import { IconEnum } from "./interfaces/IconEnum";
 import { ITaskConfig } from "./interfaces/config/itaskconfig";
 import { IAppConfig } from "./interfaces/config/iappconfig";
 import { IAppParams } from "./interfaces/params/iappparams";
+import {plural} from "./plural"
 
 export class Zincr {
   appconfig: IAppConfig;
@@ -30,6 +31,7 @@ export class Zincr {
     const issue = context.issue();
     const { sha } = context.payload.pull_request.head;
 
+    /*
     const _plural = function(
       plural: string,
       singular: string,
@@ -40,7 +42,7 @@ export class Zincr {
       } else {
         return plural;
       }
-    };
+    };*/
 
     // if there is no pull request or the state is not open, no reason to continue
     if (!pullRequest || pullRequest.state !== "open") return;
@@ -71,7 +73,7 @@ export class Zincr {
       ...checkInfo,
       status: "in_progress",
       output: {
-        title: `Processing ${this.runner.tasks.length} ${_plural(
+        title: `Processing ${this.runner.tasks.length} ${plural(
           "checks",
           "check",
           this.runner.tasks.length
@@ -89,11 +91,11 @@ export class Zincr {
       conclusion: result.Failure.length == 0 ? "success" : "action_required",
       completed_at: new Date().toISOString(),
       output: {
-        title: `Found ${result.Failure.length} ${_plural(
+        title: `Found ${result.Failure.length} ${plural(
           "problems",
           "problem",
           result.Failure.length
-        )},  ${result.Warning.length} ${_plural(
+        )},  ${result.Warning.length} ${plural(
           "warnings",
           "warning",
           result.Failure.length
@@ -126,11 +128,11 @@ export class Zincr {
     var comments = [];
 
     comments.push(
-      `## 🤖 ${this.appconfig.appname} found ${result.Failure.length} ${_plural(
+      `## 🤖 ${this.appconfig.appname} found ${result.Failure.length} ${plural(
         "problems",
         "problem",
         result.Failure.length
-      )} ,  ${result.Warning.length} ${_plural(
+      )} ,  ${result.Warning.length} ${plural(
         "warnings",
         "warning",
         result.Warning.length
