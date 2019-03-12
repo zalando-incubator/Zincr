@@ -1,8 +1,9 @@
 import { Context } from "probot";
 import { BaseTask } from "./base";
 import { ITaskParams } from "../interfaces/params/itaskparams";
-export default class FourEyePrincipleTask extends BaseTask<any> {
-    constructor(params: ITaskParams<any>);
+import { IApprovalsConfig } from "../interfaces/config/iapprovalsconfig";
+export default class FourEyePrincipleTask extends BaseTask<IApprovalsConfig> {
+    constructor(params: ITaskParams<IApprovalsConfig>);
     run(context: Context): Promise<boolean>;
     unique: (value: any, index: number, self: any[]) => boolean;
     getCommitAuthors(context: Context, pr_author: string): Promise<any>;

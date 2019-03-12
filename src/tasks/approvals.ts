@@ -3,9 +3,10 @@ import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { ITaskParams } from "../interfaces/params/itaskparams";
 import { plural } from "../plural";
-export default class FourEyePrincipleTask extends BaseTask<any> { 
+import { IApprovalsConfig } from "../interfaces/config/iapprovalsconfig";
+export default class FourEyePrincipleTask extends BaseTask<IApprovalsConfig> { 
 
-  constructor(params : ITaskParams<any>) {
+  constructor(params : ITaskParams<IApprovalsConfig>) {
     super(params); 
     
     this.name = "Approvals";  
