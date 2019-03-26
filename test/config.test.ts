@@ -23,7 +23,10 @@ describe("zincr", () => {
         expect(config["X-Zalando-Team"]).toBe("opensource");
 
         expect(config.approvals).toBeDefined();
+
+        if(config.approvals){
         expect(config.approvals.enabled).toBe(true);
+        }
 
         done();
         //var zincr = new Zincr(AppConfig, config, repo);
@@ -66,13 +69,19 @@ describe("zincr", () => {
         expect(config["X-Zalando-Team"]).toBe("opensource");
 
         expect(config.approvals).toBeDefined();
+        if(config.approvals){
         expect(config.approvals.includeAuthor).toBe(false);
+        }
 
         expect(config.specification).toBeDefined();
+        if(config.specification){
         expect(config.specification.enabled).toBe(true);
+        }
 
         expect(config.largecommits).toBeDefined();
-        expect(config.largecommits.enabled).toBe(false);
+        if(config.largecommits){
+         expect(config.largecommits.enabled).toBe(false);
+        }
 
         done();
       });
