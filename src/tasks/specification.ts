@@ -2,6 +2,7 @@ import { Context } from "probot";
 import { BaseTask } from "./base";
 import { StatusEnum } from "../interfaces/StatusEnum";
 import { ITaskParams } from "../interfaces/params/itaskparams";
+import { ISpecificationConfig } from "../interfaces/config/ispecificationconfig";
 //import requestPromise = require("request-promise");
 
 // Patters for issue and url checks
@@ -9,9 +10,9 @@ const ISSUE_PATTERN = /(?:\w[\w-.]+\/\w[\w-.]+|\B)#[1-9]\d*\b/;
 const URL_PATTERN = /\bhttps?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
 
 
-export default class SpecificationTask extends BaseTask<any> {
+export default class SpecificationTask extends BaseTask<ISpecificationConfig> {
     
-  constructor(params : ITaskParams<any>) {
+  constructor(params : ITaskParams<ISpecificationConfig>) {
     super(params); 
     this.name = "Specification";  
     this.description =  "All pull requests must follow certain rules for content length and form";

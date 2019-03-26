@@ -100,6 +100,23 @@ describe("zincr", () => {
 
   
   test("Probot bootstraps Zincr with single task configuration", async done => {
+
+    nock("https://api.github.com")
+      .post("/app/installations/66666/access_tokens")
+      .reply(200, { token: "test" });
+
+    nock("https://api.github.com")
+      .persist()
+      .post(
+        "/repos/robotland/test/check-runs",
+        (body: ChecksUpdateResponse) => {
+          body.completed_at = "2018-07-14T18:18:54.156Z";
+          expect(body.status).toBe("in_progress");
+          done();
+        }
+      )
+      .reply(200);
+
     let probot = new Probot({});
     const runningBot = probot.load((app: Application) => {
       const events = ["pull_request", "pull_request_review"];
@@ -125,33 +142,13 @@ describe("zincr", () => {
 
         var zincr = new Zincr(params);
         await zincr.onChange(context);
-
       });
     });
 
     // just return a test token
-    runningBot.app = () => "test";
-
-    nock("https://api.github.com")
-      .post("/app/installations/66666/access_tokens")
-      .reply(200, { token: "test" });
-
-    nock("https://api.github.com")
-      .persist(true)
-      .post(
-        "/repos/robotland/test/check-runs",
-        (body: ChecksUpdateResponse) => {
-          body.completed_at = "2018-07-14T18:18:54.156Z";
-          
-          expect(body.status).toBe("in_progress");
-
-          done();
-        }
-      )
-      .reply(200);
-
+    runningBot.app = () => "test";    
     await probot.receive({ name: "pull_request", payload });
-    
+
   });
   
 });
