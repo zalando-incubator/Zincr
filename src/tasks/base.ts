@@ -67,14 +67,6 @@ export abstract class BaseTask<T> implements ITask<T> {
       }
     }
 
-    /*
-    var status = IconEnum.Success;
-    if(this.summary().Warning.length > 0){
-      status = IconEnum.Warning;
-    }
-    if(this.summary().Failure.length > 0){
-      status = IconEnum.Failure;
-    }*/
 
     var resolutions = [];
 
