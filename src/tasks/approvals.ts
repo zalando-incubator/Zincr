@@ -11,7 +11,7 @@ export default class FourEyePrincipleTask extends BaseTask<IApprovalsConfig> {
     
     this.name = "Approvals";  
     this.description =  "All proposed changes must be reviewed by project maintainers before they can be merged";  
-    this.resolution = `Not enough people have approved this pull request - please ensure that XXX additional user(s) who have not contributed to this pull request approve the changes.`;
+    this.resolution = `Not enough people have approved this pull request - please ensure that XXX, who have not contributed to this pull request approve the changes.`;
     this.postAsComment = true;
   }
 
@@ -67,7 +67,7 @@ export default class FourEyePrincipleTask extends BaseTask<IApprovalsConfig> {
         result: StatusEnum.Failure
       });
 
-      this.resolution = this.resolution.replace('XXX', missingApprovals.toString());
+      this.resolution = this.resolution.replace('XXX', plural(missingApprovals.toString() +  " additional users", "1 additional user", missingApprovals));
     }
 
    

@@ -15,27 +15,27 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "probot run ./lib/index.js",
-    "test": "jest **/*.ts",
+    "test": "nyc jest **/*.ts",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "license-lookup": "0.0.17",
-    "pom-parser": "^1.1.1",
+    "license-lookup": "0.0.18",
     "probot": "^7.5.0",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
-    "@types/request-promise": "^4.1.42",
     "@types/jest": "^23.3.14",
     "@types/nock": "^9.3.1",
     "@types/node": "^10.12.21",
+    "@types/request-promise": "^4.1.42",
     "eslint-plugin-typescript": "^0.12.0",
-    "jest": "^23.4.0",
+    "jest": "^24.5.0",
     "nock": "^10.0.6",
     "nodemon": "^1.18.9",
+    "nyc": "^13.3.0",
     "smee-client": "^1.0.2",
     "standard": "^10.0.3",
-    "ts-jest": "^23.10.5",
+    "ts-jest": "^24.0.1",
     "typescript": "^3.3.1",
     "typescript-eslint-parser": "^18.0.0"
   },
