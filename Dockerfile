@@ -1,6 +1,6 @@
 FROM registry.opensource.zalan.do/stups/node:11.8.0-44
 RUN apt-get update && apt-get dist-upgrade -y
-RUN apt-get install git
+RUN sudo apt-get install git
 
 WORKDIR /app
 ENV LOG_LEVEL debug
