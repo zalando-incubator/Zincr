@@ -10,7 +10,9 @@ build_steps:
       function npm {
         docker run -i --rm -v "$(pwd):/workspace" -w /workspace registry.opensource.zalan.do/stups/node:11.8.0-44 npm "$@"
       }
-
+      
+      npm -v
+      npm install --no-cache git
       npm install typescript
       npm install --no-optional
       npm run test
@@ -20,7 +22,8 @@ build_steps:
       function npm {
         docker run -i --rm -v "$(pwd):/workspace" -w /workspace registry.opensource.zalan.do/stups/node:11.8.0-44 npm "$@"
       }
-
+      
+      npm install --no-cache git
       npm install typescript
       npm install --no-optional
       npm run build
