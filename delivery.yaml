@@ -12,6 +12,7 @@ build_steps:
       }
       
       sudo apt-get install git
+      touch /usr/bin/git
       
       npm install typescript
       npm install --no-optional
@@ -24,6 +25,7 @@ build_steps:
       }
       
       sudo apt-get install git
+      touch /usr/bin/git
       
       npm install typescript
       npm install --no-optional
