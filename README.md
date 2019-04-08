@@ -153,4 +153,4 @@ For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) © 2018 Zalando SE, Author: Per Ploug <per.ploug@zalando.de>
+[MIT](LICENSE) © 2019 Zalando SE, Author: Per Ploug <per.ploug@zalando.de>
