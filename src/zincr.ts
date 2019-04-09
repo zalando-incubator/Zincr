@@ -31,19 +31,7 @@ export class Zincr {
     const issue = context.issue();
     const { sha } = context.payload.pull_request.head;
 
-    /*
-    const _plural = function(
-      plural: string,
-      singular: string,
-      count: number
-    ): string {
-      if (count === 1) {
-        return singular;
-      } else {
-        return plural;
-      }
-    };*/
-
+   
     // if there is no pull request or the state is not open, no reason to continue
     if (!pullRequest || pullRequest.state !== "open") return;
 

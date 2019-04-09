@@ -32,7 +32,7 @@ export class TaskRunner {
       var taskname = task[0];
       var tConfig = task[1];
 
-      try{
+    
         // The 2019 winner of the most wonderful syntax award... 
         const params : ITaskParams<any> = {
           appconfig: this.appconfig,
@@ -41,14 +41,14 @@ export class TaskRunner {
           organization: this.organization
         };
 
-        var t : BaseTask<any> = new ((await import(this.appconfig.tasksdirectory + taskname)).default)(params);
+        try{
+        var t : BaseTask<any> = new ((await import(params.appconfig.tasksdirectory + taskname)).default)(params);
         if(t !== null){
           runners.push(t);
         }
-
-      }catch(ex){
-        console.log(ex);
-      }
+        }catch(ex){
+          console.log(ex);
+        } 
     }
     
     return runners;
