@@ -19,7 +19,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "license-lookup": "0.0.19",
+    "license-lookup": "0.0.20",
     "probot": "^7.5.0",
     "request-promise": "^4.2.2"
   },
