@@ -27,12 +27,14 @@ We'd also love PRs. If you're thinking of a large PR, we advise opening up an is
 
 Here are a few things you can do that will increase the likelihood of your pull request being accepted:
 
-- Follow the [style guide][style] which is using standard. Any linting errors should be shown when running `npm test`.
 - Write and update tests.
 - Keep your changes as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 
 Work in Progress pull requests are also welcome to get feedback early on, or if there is something blocked you.
+
+## Pull Request Reviews
+The maintainers use a review tool called "Zappr" instead of standard github approvals, the way we approve is by adding a :+1: in a comment on the PR. For a PR to be approved it needs two :+1: comments by a Zalando employee. 
 
 ## Resources
 
