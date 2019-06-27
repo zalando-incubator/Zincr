@@ -2,7 +2,8 @@ import { ITaskConfig } from "../interfaces/config/itaskconfig";
 import { StatusEnum } from "../interfaces/StatusEnum";
 
 let TaskConfig : ITaskConfig = {
-  
+    comment: true,
+
     largecommits : {
       enabled: true,
       maxLines: 100

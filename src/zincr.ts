@@ -31,23 +31,33 @@ export class Zincr {
     const issue = context.issue();
     const { sha } = context.payload.pull_request.head;
 
+    const valid_pr_actions = ["opened", "edited", "reopened","synchronize"];
+
+
    
     // if there is no pull request or the state is not open, no reason to continue
     if (!pullRequest || pullRequest.state !== "open") return;
+
+    // only trigger on valid PR events
+    if (
+      event == "pull_request" &&
+      valid_pr_actions.indexOf(context.payload.action) < 0
+    )
+    return;
 
     // no need to rerun checks when a review is requested..
     if (
       event == "pull_request" &&
       context.payload.action === "review_requested"
     )
-      return;
-
+    return;
+    
     // if this a dimissal of a review, we already handling this elsewhere.
     if (
       event === "pull_request_review" &&
       context.payload.action === "dismissed"
     )
-      return;
+    return;
 
     const checkInfo = {
       owner: this.repo.owner,
@@ -146,21 +156,24 @@ export class Zincr {
     checkResult.output!.summary = summary.join("\n");
     checkResult.output!.text = resolutions.join("\n");
 
-    //section for providing guidance as a comment on the P
-    const issue_comments = await context.github.issues.listComments(issue);
-    const comment = issue_comments.data.find(
-      comment => comment.user.login === this.appconfig.appname + "[bot]"
-    );
-    const body = comments.join("\n");
 
-    if (comment) {
-      await context.github.issues.updateComment({
-        ...issue,
-        comment_id: comment.id,
-        body: body
-      });
-    } else {
-      await context.github.issues.createComment({ ...issue, body: body });
+    if(this.taskconfig.comment){
+      //section for providing guidance as a comment on the PR
+      const issue_comments = await context.github.issues.listComments(issue);
+      const comment = issue_comments.data.find(
+        comment => comment.user.login === this.appconfig.appname + "[bot]"
+      );
+      const body = comments.join("\n");
+
+      if (comment) {
+        await context.github.issues.updateComment({
+          ...issue,
+          comment_id: comment.id,
+          body: body
+        });
+      } else {
+        await context.github.issues.createComment({ ...issue, body: body });
+      }
     }
 
     await context.github.checks.create(checkResult);

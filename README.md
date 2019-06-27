@@ -22,8 +22,11 @@ The checks will rerun on new PRs, PR updates and when PRs are reviewed. Details 
 You can modify the default behavior by adding a `/.zappr.yml` or `/.github/zincr.yml` file - each task has a configuration section which corresponds to its name, if the check is not specified in the config, it will not run. 
 
 Sample config:
+`comment` is not a specific task, but a switch to enable/disable PR comments from the bot
 
 ```yaml
+comment: true
+
 approvals:
   includeAuthor: true
   minimum: 2
