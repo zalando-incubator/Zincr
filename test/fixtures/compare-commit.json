@@ -1,0 +1,464 @@
+{
+  "url": "https://api.github.com/repos/zalando-incubator/kopf/compare/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c...cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+  "html_url": "https://github.com/zalando-incubator/kopf/compare/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c...cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+  "permalink_url": "https://github.com/zalando-incubator/kopf/compare/zalando-incubator:781fdad...zalando-incubator:cd51bfa",
+  "diff_url": "https://github.com/zalando-incubator/kopf/compare/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c...cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a.diff",
+  "patch_url": "https://github.com/zalando-incubator/kopf/compare/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c...cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a.patch",
+  "base_commit": {
+    "sha": "781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+    "node_id": "MDY6Q29tbWl0MTc3Nzk2NzM2Ojc4MWZkYWQ1OTMzZjRmNGM5Zjk5YjgyZWZiOWU3ZWQwYjcyZTg2OGM=",
+    "commit": {
+      "author": {
+        "name": "Sergey Vasilyev",
+        "email": "sergey.vasilyev@zalando.de",
+        "date": "2019-06-12T13:35:21Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2019-06-12T13:35:21Z"
+      },
+      "message": "Merge pull request #103 from nolar/skip-no-handlers\n\nSkip handling & logging when there are no handlers",
+      "tree": {
+        "sha": "505dd4633101a0c23d670ab4f9c929b83a7f4064",
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/git/trees/505dd4633101a0c23d670ab4f9c929b83a7f4064"
+      },
+      "url": "https://api.github.com/repos/zalando-incubator/kopf/git/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJdAP+ZCRBK7hj4Ov3rIwAAdHIIAH2WFBBvX/zDH+7zC926Js0G\n0y7P8G1u0/bOF6NhnNx1kyoyHkEmn1z0AU8aQ2oFSegBfyOnBdootEv6U8UhN6eq\nKv7/AM00ZhDxznp7rAopZN9eevb+z7wCKoa9hOnPaCa6xh3OU2tymSkpkEy3+YPU\nCvtFt3koIh5A384vFZ/jv4D/xWbyb+092+pAOSssatIcs1o+OB7NfwyTE2NY2jVg\naBtT4gtwGr0vxNoTE3Re9K9TGvcjRVzBfjbd5+sYhWbA5jTZ3XJtv3zmHO0qsvS5\nrznVaBIrqBy6nkOuvHn6wGqzBx1StKs8J/JZn0LLQxrw+lh36j6HJHOINiSdVJ8=\n=61Nf\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 505dd4633101a0c23d670ab4f9c929b83a7f4064\nparent f09f7412ea644e27a0b77bcb01aa67054124ab98\nparent 3709f655ca092c538e01e62ec7245d28c8cf6440\nauthor Sergey Vasilyev <sergey.vasilyev@zalando.de> 1560346521 +0200\ncommitter GitHub <noreply@github.com> 1560346521 +0200\n\nMerge pull request #103 from nolar/skip-no-handlers\n\nSkip handling & logging when there are no handlers"
+      }
+    },
+    "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+    "html_url": "https://github.com/zalando-incubator/kopf/commit/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+    "comments_url": "https://api.github.com/repos/zalando-incubator/kopf/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c/comments",
+    "author": {
+      "login": "nolar",
+      "id": 544296,
+      "node_id": "MDQ6VXNlcjU0NDI5Ng==",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/544296?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nolar",
+      "html_url": "https://github.com/nolar",
+      "followers_url": "https://api.github.com/users/nolar/followers",
+      "following_url": "https://api.github.com/users/nolar/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nolar/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nolar/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nolar/subscriptions",
+      "organizations_url": "https://api.github.com/users/nolar/orgs",
+      "repos_url": "https://api.github.com/users/nolar/repos",
+      "events_url": "https://api.github.com/users/nolar/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nolar/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "f09f7412ea644e27a0b77bcb01aa67054124ab98",
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/f09f7412ea644e27a0b77bcb01aa67054124ab98",
+        "html_url": "https://github.com/zalando-incubator/kopf/commit/f09f7412ea644e27a0b77bcb01aa67054124ab98"
+      },
+      {
+        "sha": "3709f655ca092c538e01e62ec7245d28c8cf6440",
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/3709f655ca092c538e01e62ec7245d28c8cf6440",
+        "html_url": "https://github.com/zalando-incubator/kopf/commit/3709f655ca092c538e01e62ec7245d28c8cf6440"
+      }
+    ]
+  },
+  "merge_base_commit": {
+    "sha": "781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+    "node_id": "MDY6Q29tbWl0MTc3Nzk2NzM2Ojc4MWZkYWQ1OTMzZjRmNGM5Zjk5YjgyZWZiOWU3ZWQwYjcyZTg2OGM=",
+    "commit": {
+      "author": {
+        "name": "Sergey Vasilyev",
+        "email": "sergey.vasilyev@zalando.de",
+        "date": "2019-06-12T13:35:21Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2019-06-12T13:35:21Z"
+      },
+      "message": "Merge pull request #103 from nolar/skip-no-handlers\n\nSkip handling & logging when there are no handlers",
+      "tree": {
+        "sha": "505dd4633101a0c23d670ab4f9c929b83a7f4064",
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/git/trees/505dd4633101a0c23d670ab4f9c929b83a7f4064"
+      },
+      "url": "https://api.github.com/repos/zalando-incubator/kopf/git/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJdAP+ZCRBK7hj4Ov3rIwAAdHIIAH2WFBBvX/zDH+7zC926Js0G\n0y7P8G1u0/bOF6NhnNx1kyoyHkEmn1z0AU8aQ2oFSegBfyOnBdootEv6U8UhN6eq\nKv7/AM00ZhDxznp7rAopZN9eevb+z7wCKoa9hOnPaCa6xh3OU2tymSkpkEy3+YPU\nCvtFt3koIh5A384vFZ/jv4D/xWbyb+092+pAOSssatIcs1o+OB7NfwyTE2NY2jVg\naBtT4gtwGr0vxNoTE3Re9K9TGvcjRVzBfjbd5+sYhWbA5jTZ3XJtv3zmHO0qsvS5\nrznVaBIrqBy6nkOuvHn6wGqzBx1StKs8J/JZn0LLQxrw+lh36j6HJHOINiSdVJ8=\n=61Nf\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 505dd4633101a0c23d670ab4f9c929b83a7f4064\nparent f09f7412ea644e27a0b77bcb01aa67054124ab98\nparent 3709f655ca092c538e01e62ec7245d28c8cf6440\nauthor Sergey Vasilyev <sergey.vasilyev@zalando.de> 1560346521 +0200\ncommitter GitHub <noreply@github.com> 1560346521 +0200\n\nMerge pull request #103 from nolar/skip-no-handlers\n\nSkip handling & logging when there are no handlers"
+      }
+    },
+    "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+    "html_url": "https://github.com/zalando-incubator/kopf/commit/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+    "comments_url": "https://api.github.com/repos/zalando-incubator/kopf/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c/comments",
+    "author": {
+      "login": "nolar",
+      "id": 544296,
+      "node_id": "MDQ6VXNlcjU0NDI5Ng==",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/544296?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nolar",
+      "html_url": "https://github.com/nolar",
+      "followers_url": "https://api.github.com/users/nolar/followers",
+      "following_url": "https://api.github.com/users/nolar/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nolar/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nolar/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nolar/subscriptions",
+      "organizations_url": "https://api.github.com/users/nolar/orgs",
+      "repos_url": "https://api.github.com/users/nolar/repos",
+      "events_url": "https://api.github.com/users/nolar/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nolar/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "f09f7412ea644e27a0b77bcb01aa67054124ab98",
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/f09f7412ea644e27a0b77bcb01aa67054124ab98",
+        "html_url": "https://github.com/zalando-incubator/kopf/commit/f09f7412ea644e27a0b77bcb01aa67054124ab98"
+      },
+      {
+        "sha": "3709f655ca092c538e01e62ec7245d28c8cf6440",
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/3709f655ca092c538e01e62ec7245d28c8cf6440",
+        "html_url": "https://github.com/zalando-incubator/kopf/commit/3709f655ca092c538e01e62ec7245d28c8cf6440"
+      }
+    ]
+  },
+  "status": "ahead",
+  "ahead_by": 2,
+  "behind_by": 0,
+  "total_commits": 2,
+  "commits": [
+    {
+      "sha": "2bd482822de9b2657353f27ab55c307691dae63b",
+      "node_id": "MDY6Q29tbWl0MTc3Nzk2NzM2OjJiZDQ4MjgyMmRlOWIyNjU3MzUzZjI3YWI1NWMzMDc2OTFkYWU2M2I=",
+      "commit": {
+        "author": {
+          "name": "Dmitry Bazhal",
+          "email": "bajal@tutu.ru",
+          "date": "2019-06-12T14:33:10Z"
+        },
+        "committer": {
+          "name": "Dmitry Bazhal",
+          "email": "bajal@tutu.ru",
+          "date": "2019-06-12T14:33:10Z"
+        },
+        "message": "1. Added config - kopf.config.WorkersConfig - class attributes based options to control async workers. So user can just import it before all other kopf modules and change values to required. Maybe not the best decision, but any.\n2. So now can be configured number of next types of workers: queue processing, object patching, event creation.\n3. Blocking synchronous operations such as event creation, changed objects patching, are now asynchronous (i guess).\n\nExisting tests updated for new async functions.\nE2E tests required to test performance(how fast large number of new/changed objects can be processed). Such tests would prove efficiency of kopf concurrency.",
+        "tree": {
+          "sha": "20768d9b3c801f58ba41778c8cc89d3411a5b330",
+          "url": "https://api.github.com/repos/zalando-incubator/kopf/git/trees/20768d9b3c801f58ba41778c8cc89d3411a5b330"
+        },
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/git/commits/2bd482822de9b2657353f27ab55c307691dae63b",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null
+        }
+      },
+      "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/2bd482822de9b2657353f27ab55c307691dae63b",
+      "html_url": "https://github.com/zalando-incubator/kopf/commit/2bd482822de9b2657353f27ab55c307691dae63b",
+      "comments_url": "https://api.github.com/repos/zalando-incubator/kopf/commits/2bd482822de9b2657353f27ab55c307691dae63b/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "f09f7412ea644e27a0b77bcb01aa67054124ab98",
+          "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/f09f7412ea644e27a0b77bcb01aa67054124ab98",
+          "html_url": "https://github.com/zalando-incubator/kopf/commit/f09f7412ea644e27a0b77bcb01aa67054124ab98"
+        }
+      ]
+    },
+    {
+      "sha": "cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "node_id": "MDY6Q29tbWl0MTc3Nzk2NzM2OmNkNTFiZmE0MGZlOTdkYzlkNmNmYmM2N2IyNzE1ZTVlNWRmOGUyNWE=",
+      "commit": {
+        "author": {
+          "name": "Dmitry Bazhal",
+          "email": "kma.as707@gmail.com",
+          "date": "2019-06-12T16:01:51Z"
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "date": "2019-06-12T16:01:51Z"
+        },
+        "message": "Merge branch 'master' into master",
+        "tree": {
+          "sha": "42a376021792deadffcebe1b7338d56b03c2d108",
+          "url": "https://api.github.com/repos/zalando-incubator/kopf/git/trees/42a376021792deadffcebe1b7338d56b03c2d108"
+        },
+        "url": "https://api.github.com/repos/zalando-incubator/kopf/git/commits/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsBcBAABCAAQBQJdASHvCRBK7hj4Ov3rIwAAdHIIAIIUB6QwqGuhVXZxRz0jQdME\ntKcP8Rf9wKT1ptCEYQWMi3zMXWYyoNlsLPA6zfKnVvN8wILyX6ie2e7IlqkGTC0Q\n6jMrkZzoNz98lhXCFoHpfEkdEvwaRZia61kjzylSeXkg+W/3AC4wvZmmdohCU05x\njwvxHOCVRgfc1BOmGqE4Jd4tSVQQVwM8F0EC7evJk2dFrVklpTg9vvSNQU731UWk\n17ZkrN2ARcZe+vDyFVtCNPwkCE6CLWokHOFNG/47w8r7C0Yc4NWnwmUERKeqNflb\nA8mADUbRF5f5aDNqMDoJ8tX1Ls3ni59sPpyyp8VR4dvWqBJq3orhwIenh1Oe+r0=\n=C8ry\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 42a376021792deadffcebe1b7338d56b03c2d108\nparent 2bd482822de9b2657353f27ab55c307691dae63b\nparent 781fdad5933f4f4c9f99b82efb9e7ed0b72e868c\nauthor Dmitry Bazhal <kma.as707@gmail.com> 1560355311 +0300\ncommitter GitHub <noreply@github.com> 1560355311 +0300\n\nMerge branch 'master' into master"
+        }
+      },
+      "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "html_url": "https://github.com/zalando-incubator/kopf/commit/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "comments_url": "https://api.github.com/repos/zalando-incubator/kopf/commits/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/comments",
+      "author": {
+        "login": "dbazhal",
+        "id": 2122630,
+        "node_id": "MDQ6VXNlcjIxMjI2MzA=",
+        "avatar_url": "https://avatars3.githubusercontent.com/u/2122630?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/dbazhal",
+        "html_url": "https://github.com/dbazhal",
+        "followers_url": "https://api.github.com/users/dbazhal/followers",
+        "following_url": "https://api.github.com/users/dbazhal/following{/other_user}",
+        "gists_url": "https://api.github.com/users/dbazhal/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/dbazhal/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/dbazhal/subscriptions",
+        "organizations_url": "https://api.github.com/users/dbazhal/orgs",
+        "repos_url": "https://api.github.com/users/dbazhal/repos",
+        "events_url": "https://api.github.com/users/dbazhal/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/dbazhal/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "avatar_url": "https://avatars3.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "2bd482822de9b2657353f27ab55c307691dae63b",
+          "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/2bd482822de9b2657353f27ab55c307691dae63b",
+          "html_url": "https://github.com/zalando-incubator/kopf/commit/2bd482822de9b2657353f27ab55c307691dae63b"
+        },
+        {
+          "sha": "781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+          "url": "https://api.github.com/repos/zalando-incubator/kopf/commits/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c",
+          "html_url": "https://github.com/zalando-incubator/kopf/commit/781fdad5933f4f4c9f99b82efb9e7ed0b72e868c"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "sha": "b3a8c52f9deaec4b4939b50c21e3bae50e3443d6",
+      "filename": "examples/04-events/example.py",
+      "status": "modified",
+      "additions": 12,
+      "deletions": 6,
+      "changes": 18,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/examples/04-events/example.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/examples/04-events/example.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/examples/04-events/example.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -1,19 +1,25 @@\n \"\"\"\n Send the custom events for the handled or other objects.\n \"\"\"\n+import asyncio\n+\n import kopf\n \n \n @kopf.on.create('zalando.org', 'v1', 'kopfexamples')\n def create_fn(body, **kwargs):\n \n-    # The all-purpose function for the vent creation.\n-    kopf.event(body, type=\"SomeType\", reason=\"SomeReason\", message=\"Some message\")\n+    asyncio.wait([\n+        # The all-purpose function for the vent creation.\n+        kopf.event(body, type=\"SomeType\", reason=\"SomeReason\", message=\"Some message\"),\n+\n+        # The shortcuts for the conventional events and common cases.\n+        kopf.info(body, reason=\"SomeReason\", message=\"Some message\"),\n+        kopf.warn(body, reason=\"SomeReason\", message=\"Some message\"),\n+    ])\n \n-    # The shortcuts for the conventional events and common cases.\n-    kopf.info(body, reason=\"SomeReason\", message=\"Some message\")\n-    kopf.warn(body, reason=\"SomeReason\", message=\"Some message\")\n     try:\n         raise RuntimeError(\"Exception text.\")\n     except:\n-        kopf.exception(body, reason=\"SomeReason\", message=\"Some exception:\")\n+        loop = asyncio.get_event_loop()\n+        loop.run_until_complete(kopf.exception(body, reason=\"SomeReason\", message=\"Some exception:\"))"
+    },
+    {
+      "sha": "5f9991b60ad8b4c39aa2a355688013ec8618edff",
+      "filename": "examples/99-all-at-once/example.py",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 4,
+      "changes": 10,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/examples/99-all-at-once/example.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/examples/99-all-at-once/example.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/examples/99-all-at-once/example.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -1,7 +1,7 @@\n \"\"\"\n Kubernetes operator example: all the features at once (for debugging & testing).\n \"\"\"\n-\n+import asyncio\n import pprint\n import time\n \n@@ -17,9 +17,11 @@\n def create_1(body, meta, spec, status, **kwargs):\n     children = _create_children(owner=body)\n \n-    kopf.info(body, reason='AnyReason')\n-    kopf.event(body, type='Warning', reason='SomeReason', message=\"Cannot do something\")\n-    kopf.event(children, type='Normal', reason='SomeReason', message=\"Created as part of the job1step\")\n+    asyncio.wait([\n+        kopf.info(body, reason='AnyReason'),\n+        kopf.event(body, type='Warning', reason='SomeReason', message=\"Cannot do something\"),\n+        kopf.event(children, type='Normal', reason='SomeReason', message=\"Created as part of the job1step\"),\n+    ])\n \n     return {'job1-status': 100}\n "
+    },
+    {
+      "sha": "2e16b377e10f0e9c60072f25ccb81ed2dd5205d4",
+      "filename": "kopf/cli.py",
+      "status": "modified",
+      "additions": 5,
+      "deletions": 2,
+      "changes": 7,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/cli.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/cli.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/cli.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -1,3 +1,4 @@\n+import asyncio\n import functools\n \n import click\n@@ -70,7 +71,8 @@ def freeze(id, message, lifetime, namespace, peering_name, priority):\n         priority=priority,\n         lifetime=lifetime,\n     )\n-    ourserlves.keepalive()\n+    loop = asyncio.get_event_loop()\n+    loop.run_until_complete(ourserlves.keepalive())\n \n \n @main.command()\n@@ -86,4 +88,5 @@ def resume(id, namespace, peering_name):\n         name=peering_name,\n         namespace=namespace,\n     )\n-    ourselves.disappear()\n+    loop = asyncio.get_event_loop()\n+    loop.run_until_complete(ourselves.disappear())"
+    },
+    {
+      "sha": "780fd34a7f01132cc200bdc483c0c4d67e416208",
+      "filename": "kopf/config.py",
+      "status": "modified",
+      "additions": 25,
+      "deletions": 0,
+      "changes": 25,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/config.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/config.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/config.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -77,3 +77,28 @@ def configure(debug=None, verbose=None, quiet=None):\n \n     loop = asyncio.get_event_loop()\n     loop.set_debug(debug)\n+\n+\n+class WorkersConfig:\n+    \"\"\"Used as single point of configuration for kopf.reactor\"\"\"\n+\n+    \"\"\"How many workers can be running simultaneously on event creation operations\"\"\"\n+    synchronous_event_post_workers_limit = None\n+\n+    \"\"\"How many workers can be running simultaneously on patch operations\"\"\"\n+    synchronous_patch_workers_limit = None\n+\n+    \"\"\"How many workers can be running simultaneously on per-object event queue\"\"\"\n+    queue_workers_limit = None  # if None, there is no limits to workers number\n+\n+    \"\"\"How many threads in total can be running simultaneously to handle non-async handler functions\"\"\"\n+    synchronous_handlers_threadpool_limit = None  # if None, calculated by ThreadPoolExecutor based on cpu count\n+\n+    \"\"\"How long does a worker can idle before exiting and garbage-collecting.\"\"\"\n+    worker_idle_timeout = 5.0\n+\n+    \"\"\"How fast/slow does a worker deplete the queue when an event is received.\"\"\"\n+    worker_batch_window = 0.1\n+\n+    \"\"\"How long does a worker can work on watcher exit before being cancelled. \"\"\"\n+    worker_exit_timeout = 2.0"
+    },
+    {
+      "sha": "29f54743fc95d0d68c840a6161bd9fb424e4e9b3",
+      "filename": "kopf/events.py",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 9,
+      "changes": 18,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/events.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/events.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/events.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -17,30 +17,30 @@\n \n \n # TODO: rename it it kopf.log()? kopf.events.log()? kopf.events.warn()?\n-def event(obj, *, type, reason, message=''):\n+async def event(obj, *, type, reason, message=''):\n     \"\"\"\n     Issue an event for the object.\n     \"\"\"\n     if isinstance(obj, (list, tuple)):\n         for item in obj:\n-            events.post_event(obj=item, type=type, reason=reason, message=message)\n+            await events.post_event(obj=item, type=type, reason=reason, message=message)\n     else:\n-        events.post_event(obj=obj, type=type, reason=reason, message=message)\n+        await events.post_event(obj=obj, type=type, reason=reason, message=message)\n \n \n # Shortcuts for the only two officially documented event types as of now.\n # However, any arbitrary strings can be used as an event type to the base function.\n-def info(obj, *, reason, message=''):\n-    return event(obj, reason=reason, message=message, type='Normal')\n+async def info(obj, *, reason, message=''):\n+    return await event(obj, reason=reason, message=message, type='Normal')\n \n \n-def warn(obj, *, reason, message=''):\n-    return event(obj, reason=reason, message=message, type='Warning')\n+async def warn(obj, *, reason, message=''):\n+    return await event(obj, reason=reason, message=message, type='Warning')\n \n \n-def exception(obj, *, reason='', message='', exc=None):\n+async def exception(obj, *, reason='', message='', exc=None):\n     if exc is None:\n         _, exc, _ = sys.exc_info()\n     reason = reason if reason else type(exc).__name__\n     message = f'{message} {exc}' if message else f'{exc}'\n-    return event(obj, reason=reason, message=message, type='Error')\n+    return await event(obj, reason=reason, message=message, type='Error')"
+    },
+    {
+      "sha": "e9f0a7824add890b8e0e76cd72da699a9d4f2812",
+      "filename": "kopf/k8s/events.py",
+      "status": "modified",
+      "additions": 17,
+      "deletions": 5,
+      "changes": 22,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/k8s/events.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/k8s/events.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/k8s/events.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -1,15 +1,23 @@\n+import asyncio\n+import concurrent.futures\n import datetime\n+import functools\n import logging\n \n import kubernetes.client.rest\n \n+from kopf.config import WorkersConfig\n+\n logger = logging.getLogger(__name__)\n \n MAX_MESSAGE_LENGTH = 1024\n CUT_MESSAGE_INFIX = '...'\n \n \n-def post_event(*, obj, type, reason, message=''):\n+event_executor = concurrent.futures.ThreadPoolExecutor(max_workers=WorkersConfig.synchronous_event_post_workers_limit)\n+\n+\n+async def post_event(*, obj, type, reason, message=''):\n     \"\"\"\n     Issue an event for the object.\n     \"\"\"\n@@ -56,11 +64,15 @@ def post_event(*, obj, type, reason, message=''):\n         event_time=now.isoformat() + 'Z',  # '2019-01-28T18:25:03.000000Z'\n     )\n \n+    api = kubernetes.client.CoreV1Api()\n+    loop = asyncio.get_event_loop()\n+    if not loop:\n+        loop = asyncio.new_event_loop()\n+        asyncio.set_event_loop(loop)\n+\n     try:\n-        api = kubernetes.client.CoreV1Api()\n-        api.create_namespaced_event(\n-            namespace=namespace,\n-            body=body,\n+        await loop.run_in_executor(\n+            event_executor, functools.partial(api.create_namespaced_event, **{'namespace': namespace, 'body': body})\n         )\n     except kubernetes.client.rest.ApiException as e:\n         # Events are helpful but auxiliary, they should not fail the handling cycle."
+    },
+    {
+      "sha": "f8e36a4a443890d56ef512a55720a6d8e4e14eaf",
+      "filename": "kopf/k8s/patching.py",
+      "status": "modified",
+      "additions": 26,
+      "deletions": 18,
+      "changes": 44,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/k8s/patching.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/k8s/patching.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/k8s/patching.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -1,7 +1,15 @@\n+import asyncio\n+import concurrent.futures\n+import functools\n+\n import kubernetes\n \n+from kopf.config import WorkersConfig\n+\n+patch_executor = concurrent.futures.ThreadPoolExecutor(max_workers=WorkersConfig.synchronous_patch_workers_limit)\n \n-def patch_obj(*, resource, patch, namespace=None, name=None, body=None):\n+\n+async def patch_obj(*, resource, patch, namespace=None, name=None, body=None):\n     \"\"\"\n     Patch a resource of specific kind.\n \n@@ -20,20 +28,20 @@ def patch_obj(*, resource, patch, namespace=None, name=None, body=None):\n     name = body.get('metadata', {}).get('name') if body is not None else name\n \n     api = kubernetes.client.CustomObjectsApi()\n-    if namespace is None:\n-        api.patch_cluster_custom_object(\n-            group=resource.group,\n-            version=resource.version,\n-            plural=resource.plural,\n-            name=name,\n-            body=patch,\n-        )\n-    else:\n-        api.patch_namespaced_custom_object(\n-            group=resource.group,\n-            version=resource.version,\n-            plural=resource.plural,\n-            namespace=namespace,\n-            name=name,\n-            body=patch,\n-        )\n+    request_kwargs = {\n+        'group': resource.group,\n+        'version': resource.version,\n+        'plural': resource.plural,\n+        'name': name,\n+        'body': patch\n+    }\n+    patch_func = api.patch_cluster_custom_object\n+    if namespace is not None:\n+        request_kwargs['namespace'] = namespace\n+        patch_func = api.patch_namespaced_custom_object\n+    loop = asyncio.get_event_loop()\n+    if not loop:\n+        loop = asyncio.new_event_loop()\n+        asyncio.set_event_loop(loop)\n+\n+    await loop.run_in_executor(patch_executor, functools.partial(patch_func, **request_kwargs))"
+    },
+    {
+      "sha": "48eb1185e29c91d186cfe5680c783677c45f4bb9",
+      "filename": "kopf/reactor/handling.py",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 6,
+      "changes": 12,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/handling.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/handling.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/reactor/handling.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -122,7 +122,7 @@ class HandlerChildrenRetry(HandlerRetryError):\n     # But only once, to reduce the number of API calls and the generated irrelevant events.\n     if patch:\n         logger.debug(\"Patching with: %r\", patch)\n-        patching.patch_obj(resource=resource, patch=patch, body=body)\n+        await patching.patch_obj(resource=resource, patch=patch, body=body)\n \n     # Sleep strictly after patching, never before -- to keep the status proper.\n     if delay:\n@@ -378,34 +378,34 @@ class HandlerChildrenRetry(HandlerRetryError):\n         # Definitely retriable error, no matter what is the error-reaction mode.\n         except HandlerRetryError as e:\n             logger.exception(f\"Handler {handler.id!r} failed with a retry exception. Will retry.\")\n-            events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will retry.\")\n+            await events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will retry.\")\n             status.set_retry_time(body=cause.body, patch=cause.patch, handler=handler, delay=e.delay)\n             handlers_left.append(handler)\n \n         # Definitely fatal error, no matter what is the error-reaction mode.\n         except HandlerFatalError as e:\n             logger.exception(f\"Handler {handler.id!r} failed with a fatal exception. Will stop.\")\n-            events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will stop.\")\n+            await events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will stop.\")\n             status.store_failure(body=cause.body, patch=cause.patch, handler=handler, exc=e)\n             # TODO: report the handling failure somehow (beside logs/events). persistent status?\n \n         # Regular errors behave as either retriable or fatal depending on the error-reaction mode.\n         except Exception as e:\n             if retry_on_errors:\n                 logger.exception(f\"Handler {handler.id!r} failed with an exception. Will retry.\")\n-                events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will retry.\")\n+                await events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will retry.\")\n                 status.set_retry_time(body=cause.body, patch=cause.patch, handler=handler, delay=DEFAULT_RETRY_DELAY)\n                 handlers_left.append(handler)\n             else:\n                 logger.exception(f\"Handler {handler.id!r} failed with an exception. Will stop.\")\n-                events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will stop.\")\n+                await events.exception(cause.body, message=f\"Handler {handler.id!r} failed. Will stop.\")\n                 status.store_failure(body=cause.body, patch=cause.patch, handler=handler, exc=e)\n                 # TODO: report the handling failure somehow (beside logs/events). persistent status?\n \n         # No errors means the handler should be excluded from future runs in this reaction cycle.\n         else:\n             logger.info(f\"Handler {handler.id!r} succeeded.\")\n-            events.info(cause.body, reason='Success', message=f\"Handler {handler.id!r} succeeded.\")\n+            await events.info(cause.body, reason='Success', message=f\"Handler {handler.id!r} succeeded.\")\n             status.store_success(body=cause.body, patch=cause.patch, handler=handler, result=result)\n \n     # Provoke the retry of the handling cycle if there were any unfinished handlers,"
+    },
+    {
+      "sha": "d6a519bf60a2abfe92609d2f451456d0951c4b8b",
+      "filename": "kopf/reactor/invocation.py",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 1,
+      "changes": 4,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/invocation.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/invocation.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/reactor/invocation.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -13,7 +13,9 @@\n \n # The executor for the sync-handlers (i.e. regular functions).\n # TODO: make the limits if sync-handlers configurable?\n-executor = concurrent.futures.ThreadPoolExecutor(max_workers=3)\n+from kopf.config import WorkersConfig\n+\n+executor = concurrent.futures.ThreadPoolExecutor(max_workers=WorkersConfig.synchronous_handlers_threadpool_limit)\n # executor = concurrent.futures.ProcessPoolExecutor(max_workers=3)\n \n "
+    },
+    {
+      "sha": "6017f9f89684f6e39e064ae21064eda3a7c4249b",
+      "filename": "kopf/reactor/peering.py",
+      "status": "modified",
+      "additions": 9,
+      "deletions": 9,
+      "changes": 18,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/peering.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/peering.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/reactor/peering.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -131,19 +131,19 @@ def touch(self, *, lifetime: Optional[int] = None):\n         self.deadline = self.lastseen + self.lifetime\n         self.is_dead = self.deadline <= datetime.datetime.utcnow()\n \n-    def keepalive(self):\n+    async def keepalive(self):\n         \"\"\"\n         Add a peer to the peers, and update its alive status.\n         \"\"\"\n         self.touch()\n-        apply_peers([self], name=self.name, namespace=self.namespace, legacy=self.legacy)\n+        await apply_peers([self], name=self.name, namespace=self.namespace, legacy=self.legacy)\n \n-    def disappear(self):\n+    async def disappear(self):\n         \"\"\"\n         Remove a peer from the peers (gracefully).\n         \"\"\"\n         self.touch(lifetime=0)\n-        apply_peers([self], name=self.name, namespace=self.namespace, legacy=self.legacy)\n+        await apply_peers([self], name=self.name, namespace=self.namespace, legacy=self.legacy)\n \n     @staticmethod\n     def _is_peering_exist(name: str, namespace: Optional[str]):\n@@ -172,7 +172,7 @@ def _is_peering_legacy(name: str, namespace: Optional[str]):\n         return obj is not None\n \n \n-def apply_peers(\n+async def apply_peers(\n         peers: Iterable[Peer],\n         name: str,\n         namespace: Union[None, str],\n@@ -188,7 +188,7 @@ def apply_peers(\n     resource = (LEGACY_PEERING_RESOURCE if legacy else\n                 CLUSTER_PEERING_RESOURCE if namespace is None else\n                 NAMESPACED_PEERING_RESOURCE)\n-    patching.patch_obj(resource=resource, namespace=namespace, name=name, patch=patch)\n+    await patching.patch_obj(resource=resource, namespace=namespace, name=name, patch=patch)\n \n \n async def peers_handler(\n@@ -225,7 +225,7 @@ def apply_peers(\n \n     if autoclean and dead_peers:\n         # NB: sync and blocking, but this is fine.\n-        apply_peers(dead_peers, name=ourselves.name, namespace=ourselves.namespace, legacy=ourselves.legacy)\n+        await apply_peers(dead_peers, name=ourselves.name, namespace=ourselves.namespace, legacy=ourselves.legacy)\n \n     if prio_peers:\n         if not freeze.is_set():\n@@ -249,14 +249,14 @@ def apply_peers(\n     try:\n         while True:\n             logger.debug(f\"Peering keep-alive update for {ourselves.id} (priority {ourselves.priority})\")\n-            ourselves.keepalive()\n+            await ourselves.keepalive()\n \n             # How often do we update. Keep limited to avoid k8s api flooding.\n             # Should be slightly less than the lifetime, enough for a patch request to finish.\n             await asyncio.sleep(max(1, int(ourselves.lifetime.total_seconds() - 10)))\n     finally:\n         try:\n-            ourselves.disappear()\n+            await ourselves.disappear()\n         except:\n             pass\n "
+    },
+    {
+      "sha": "b9f540696143e1e21b9de2756d9abc6468bba2ba",
+      "filename": "kopf/reactor/queueing.py",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 14,
+      "changes": 20,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/queueing.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/kopf/reactor/queueing.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/kopf/reactor/queueing.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -31,6 +31,7 @@\n \n import aiojobs\n \n+from kopf.config import WorkersConfig\n from kopf.k8s import watching\n from kopf.reactor import handling\n from kopf.reactor import lifecycles\n@@ -46,15 +47,6 @@\n EOS = object()\n \"\"\" An end-of-stream marker sent from the watcher to the workers. \"\"\"\n \n-WORKER_IDLE_TIMEOUT = 5.0\n-\"\"\" How long does a worker can idle before exiting and garbage-collecting.\"\"\"\n-\n-WORKER_BATCH_WINDOW = 0.1\n-\"\"\" How fast/slow does a worker deplete the queue when an event is received.\"\"\"\n-\n-WORKER_EXIT_TIMEOUT = 2.0\n-\"\"\" How long does a worker can work on watcher exit before being cancelled. \"\"\"\n-\n \n # TODO: add the label_selector support for the dev-mode?\n async def watcher(\n@@ -77,7 +69,7 @@\n \n     # All per-object workers are handled as fire-and-forget jobs via the scheduler,\n     # and communicated via the per-object event queues.\n-    scheduler = await aiojobs.create_scheduler(limit=10)\n+    scheduler = await aiojobs.create_scheduler(limit=WorkersConfig.queue_workers_limit)\n     queues = {}\n     try:\n         # Either use the existing object's queue, or create a new one together with the per-object job.\n@@ -128,14 +120,14 @@\n             # If the queue is filled, use the latest event only (within the short timeframe).\n             # If an EOS marker is received, handle the last real event, then finish the worker ASAP.\n             try:\n-                event = await asyncio.wait_for(queue.get(), timeout=WORKER_IDLE_TIMEOUT)\n+                event = await asyncio.wait_for(queue.get(), timeout=WorkersConfig.worker_idle_timeout)\n             except asyncio.TimeoutError:\n                 break\n             else:\n                 try:\n                     while True:\n                         prev_event = event\n-                        next_event = await asyncio.wait_for(queue.get(), timeout=WORKER_BATCH_WINDOW)\n+                        next_event = await asyncio.wait_for(queue.get(), timeout=WorkersConfig.worker_batch_window)\n                         shouldstop = shouldstop or next_event is EOS\n                         event = prev_event if next_event is EOS else next_event\n                 except asyncio.TimeoutError:\n@@ -269,8 +261,8 @@ def run(\n     # Wait for the queues to be depleted, but only if there are some workers running.\n     # Continue with the tasks termination if the timeout is reached, no matter the queues.\n     started = time.perf_counter()\n-    while queues and scheduler.active_count and time.perf_counter() - started < WORKER_EXIT_TIMEOUT:\n-        await asyncio.sleep(WORKER_EXIT_TIMEOUT / 100.)\n+    while queues and scheduler.active_count and time.perf_counter() - started < WorkersConfig.worker_exit_timeout:\n+        await asyncio.sleep(WorkersConfig.worker_exit_timeout / 100.)\n \n     # The last check if the termination is going to be graceful or not.\n     if queues:"
+    },
+    {
+      "sha": "6a7f17b0904e41f32358d933b1fa8ff61ee71508",
+      "filename": "tests/k8s/test_patching.py",
+      "status": "modified",
+      "additions": 20,
+      "deletions": 5,
+      "changes": 25,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/tests/k8s/test_patching.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/tests/k8s/test_patching.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/tests/k8s/test_patching.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -1,3 +1,5 @@\n+import asyncio\n+\n import pytest\n from asynctest import call\n \n@@ -10,7 +12,10 @@ def test_by_name_clustered(client_mock, resource):\n     sidefn_mock = apicls_mock.return_value.patch_namespaced_custom_object\n     mainfn_mock = apicls_mock.return_value.patch_cluster_custom_object\n \n-    res = patch_obj(resource=resource, namespace=None, name='name1', patch=patch)\n+    task = asyncio.create_task(patch_obj(resource=resource, namespace=None, name='name1', patch=patch))\n+    loop = asyncio.get_event_loop()\n+    loop.run_until_complete(task)\n+    res = task.result\n     assert res is None  # never return any k8s-client specific things\n \n     assert not sidefn_mock.called\n@@ -30,7 +35,10 @@ def test_by_name_namespaced(client_mock, resource):\n     sidefn_mock = apicls_mock.return_value.patch_cluster_custom_object\n     mainfn_mock = apicls_mock.return_value.patch_namespaced_custom_object\n \n-    res = patch_obj(resource=resource, namespace='ns1', name='name1', patch=patch)\n+    task = asyncio.create_task(patch_obj(resource=resource, namespace='ns1', name='name1', patch=patch))\n+    loop = asyncio.get_event_loop()\n+    loop.run_until_complete(task)\n+    res = task.result\n     assert res is None  # never return any k8s-client specific things\n \n     assert not sidefn_mock.called\n@@ -52,7 +60,10 @@ def test_by_body_clustered(client_mock, resource):\n     mainfn_mock = apicls_mock.return_value.patch_cluster_custom_object\n \n     body = {'metadata': {'name': 'name1'}}\n-    res = patch_obj(resource=resource, body=body, patch=patch)\n+    task = asyncio.create_task(patch_obj(resource=resource, body=body, patch=patch))\n+    loop = asyncio.get_event_loop()\n+    loop.run_until_complete(task)\n+    res = task.result\n     assert res is None  # never return any k8s-client specific things\n \n     assert not sidefn_mock.called\n@@ -73,7 +84,10 @@ def test_by_body_namespaced(client_mock, resource):\n     mainfn_mock = apicls_mock.return_value.patch_namespaced_custom_object\n \n     body = {'metadata': {'namespace': 'ns1', 'name': 'name1'}}\n-    res = patch_obj(resource=resource, body=body, patch=patch)\n+    task = asyncio.create_task(patch_obj(resource=resource, body=body, patch=patch))\n+    loop = asyncio.get_event_loop()\n+    loop.run_until_complete(task)\n+    res = task.result\n     assert res is None  # never return any k8s-client specific things\n \n     assert not sidefn_mock.called\n@@ -96,7 +110,8 @@ def test_raises_when_body_conflicts_with_namespace(client_mock, resource):\n \n     body = {'metadata': {'namespace': 'ns1', 'name': 'name1'}}\n     with pytest.raises(TypeError):\n-        patch_obj(resource=resource, body=body, namespace='ns1', patch=patch)\n+        loop = asyncio.get_event_loop()\n+        loop.run_until_complete(patch_obj(resource=resource, body=body, namespace='ns1', patch=patch))\n \n     assert not sidefn_mock.called\n     assert not mainfn_mock.called"
+    },
+    {
+      "sha": "43888c669bdf158d61478ad54e3e5db038ccab35",
+      "filename": "tests/reactor/test_queueing.py",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 11,
+      "changes": 22,
+      "blob_url": "https://github.com/zalando-incubator/kopf/blob/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/tests/reactor/test_queueing.py",
+      "raw_url": "https://github.com/zalando-incubator/kopf/raw/cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a/tests/reactor/test_queueing.py",
+      "contents_url": "https://api.github.com/repos/zalando-incubator/kopf/contents/tests/reactor/test_queueing.py?ref=cd51bfa40fe97dc9d6cfbc67b2715e5e5df8e25a",
+      "patch": "@@ -115,9 +115,9 @@\n     \"\"\" Verify that only the last event per uid is actually handled. \"\"\"\n \n     # Override the default timeouts to make the tests faster.\n-    mocker.patch('kopf.reactor.queueing.WORKER_IDLE_TIMEOUT', 0.5)\n-    mocker.patch('kopf.reactor.queueing.WORKER_BATCH_WINDOW', 0.1)\n-    mocker.patch('kopf.reactor.queueing.WORKER_EXIT_TIMEOUT', 0.5)\n+    mocker.patch('kopf.config.WorkersConfig.worker_idle_timeout', 0.5)\n+    mocker.patch('kopf.config.WorkersConfig.worker_batch_window', 0.1)\n+    mocker.patch('kopf.config.WorkersConfig.worker_exit_timeout', 0.5)\n \n     # Inject the events of unique objects - to produce few queues/workers.\n     stream.return_value = iter(events)\n@@ -132,8 +132,8 @@\n \n     # Significantly less than the queue getting timeout, but sufficient to run.\n     # 2 <= 1 pull for the event chain + 1 pull for EOS. TODO: 1x must be enough.\n-    from kopf.reactor.queueing import WORKER_BATCH_WINDOW\n-    assert timer.seconds < WORKER_BATCH_WINDOW + CODE_OVERHEAD\n+    from kopf.config import WorkersConfig\n+    assert timer.seconds < WorkersConfig.worker_batch_window + CODE_OVERHEAD\n \n     # Was the handler called at all? Awaited as needed for async fns?\n     assert handler.awaited\n@@ -165,9 +165,9 @@\n async def test_garbage_collection_of_queues(mocker, stream, events, unique, worker_spy):\n \n     # Override the default timeouts to make the tests faster.\n-    mocker.patch('kopf.reactor.queueing.WORKER_IDLE_TIMEOUT', 0.5)\n-    mocker.patch('kopf.reactor.queueing.WORKER_BATCH_WINDOW', 0.1)\n-    mocker.patch('kopf.reactor.queueing.WORKER_EXIT_TIMEOUT', 0.5)\n+    mocker.patch('kopf.config.WorkersConfig.worker_idle_timeout', 0.5)\n+    mocker.patch('kopf.config.WorkersConfig.worker_batch_window', 0.1)\n+    mocker.patch('kopf.config.WorkersConfig.worker_exit_timeout', 0.5)\n \n     # Inject the events of unique objects - to produce few queues/workers.\n     stream.return_value = iter(events)\n@@ -187,9 +187,9 @@\n \n     # Give the workers some time to finish waiting for the events.\n     # Once the idle timeout, they will exit and gc their individual queues.\n-    from kopf.reactor.queueing import WORKER_IDLE_TIMEOUT, WORKER_BATCH_WINDOW\n-    await asyncio.sleep(WORKER_BATCH_WINDOW)  # depleting the queues.\n-    await asyncio.sleep(WORKER_IDLE_TIMEOUT)  # idling on empty queues.\n+    from kopf.config import WorkersConfig\n+    await asyncio.sleep(WorkersConfig.worker_batch_window)  # depleting the queues.\n+    await asyncio.sleep(WorkersConfig.worker_idle_timeout)  # idling on empty queues.\n     await asyncio.sleep(CODE_OVERHEAD)\n \n     # The mutable(!) queues dict is now empty, i.e. garbage-collected."
+    }
+  ]
+}
