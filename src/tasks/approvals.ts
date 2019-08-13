@@ -4,6 +4,7 @@ import { StatusEnum } from "../interfaces/StatusEnum";
 import { ITaskParams } from "../interfaces/params/itaskparams";
 import { plural } from "../plural";
 import { IApprovalsConfig } from "../interfaces/config/iapprovalsconfig";
+import { ReposCompareCommitsResponse } from "@octokit/rest";
 export default class FourEyePrincipleTask extends BaseTask<IApprovalsConfig> { 
 
   constructor(params : ITaskParams<IApprovalsConfig>) {
@@ -92,14 +93,17 @@ export default class FourEyePrincipleTask extends BaseTask<IApprovalsConfig> {
       number: context.payload.pull_request.number
     });*/
 
+    response.data.commits as ReposCompareCommitsResponse
     // get all contributin users - except where the contribution is made via the suggestion feature, as this is reviwed
     // by the original author before including - so co-authored commits can be exluded
     return response.data.commits
+      .filter( (data : any)  => data !== null && data.author !== null && data.author.login)
       .filter( (data : any)  => data.commit.message.indexOf(`Co-Authored-By: ${pr_author}`) < 0)
       .filter( (data : any)  => (data.commit.committer.login !== 'Github' && data.commit.message.indexOf(`Merge branch '${pr.base.ref}' into`) < 0))
-      .map((commit : any)  => commit.author.login)
+      .map((data : any)  => data.author.login)
       .filter(this.unique)
   }
+      
 
   async getReviews(context: Context, coauthors : Array<string>, state : string) : Promise<{approvals: Array<string>, contributing: Array<string>}> {
     

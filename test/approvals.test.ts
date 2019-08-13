@@ -227,4 +227,37 @@ describe("zincr approvals", () => {
   })
   
 
+  const kopf_payload = require("./fixtures/compare-commit.json");
+  // Kopf test case, missing author login
+  test("Kopf, missing author test case", async done => {
+
+    nock("https://api.github.com")
+      .get("/orgs/robotland/memberships/bkeepers")
+      .reply(200,  {state: "active"} );
+
+    nock("https://api.github.com")
+      .get("/repos/robotland/test/compare/607c64cd8e37eb2db939f99a17bee5c7d1a90a31...e76ed6025cec8879c75454a6efd6081d46de4c94")
+      .reply(200,  kopf_payload);
+
+    nock("https://api.github.com")
+      .get("/repos/robotland/test/pulls/113/reviews")
+      .reply(200,  [ {id: 666, user: {login: 'a'}, state: "approved"}, {id: 666, user: {login: 'b'}, state: "approved"}] );
+    
+    nock("https://api.github.com")
+      .put("/repos/robotland/test/pulls/113/reviews/666/dismissals")
+      .reply(200,  {} );
+
+    await task.run(context);
+    
+    // this should produce a warning, so success will be false
+    expect( task.success() ) .toBe(true);
+
+    var status = task.summary();
+    expect( status.Failure.length ).toBe(0);
+    expect( status.Warning.length ).toBe(0);
+    expect( status.Success.length ).toBe(3);
+
+    done();
+  })
+
 });

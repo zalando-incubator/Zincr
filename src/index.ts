@@ -10,9 +10,6 @@ export = (app: Application) => {
   const setStatusPass = require("./set-status-pass");
   const events = ["pull_request", "pull_request_review"];
   
-  // We log this to validate our process is running on the right github token.
-  console.log("ENV VARS " + process.env);
-  
   // Runs the check on all pull request and review events
   app.on(events, processPullRequest);
   app.on('check_run.requested_action', setStatusPass)
