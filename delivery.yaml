@@ -15,8 +15,6 @@ build_steps:
       npm install --no-optional
       npm run test
       
-      sonar-client --recipes=master-dashboard,pr-issues-as-comments
-      
   - desc: Build
     cmd: |
       function npm {
