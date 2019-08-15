@@ -31,7 +31,7 @@ export default class RisksTask extends BaseTask<IRisksConfig> {
     }else{
 
       this.result.push({
-        label: "Update your Risks.md file",
+        label: "Please update your Risks.md file",
         result: StatusEnum.Failure,
         description: ` [Update your risk assessment](https://${context.host}/risky/${this.repo.owner}/${this.repo.repo}/)`
       })
