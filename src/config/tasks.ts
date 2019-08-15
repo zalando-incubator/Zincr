@@ -15,6 +15,13 @@ let TaskConfig : ITaskConfig = {
       enabled: true
     },
 
+    risks: {
+      enabled: true,
+      tag: "risk",
+      tracker: "github",
+      url: ""
+    },
+
     specification: {
       enabled: true,
 

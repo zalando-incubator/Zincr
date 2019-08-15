@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" class="height-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Setup {{#if pkg.name }}{{ pkg.name }}{{else}}Your App{{/if}} | built with Probot</title>
+  <link rel="icon" href="/probot/static/probot-head.png">
+  <link rel="stylesheet" href="/probot/static/primer.css">
+</head>
+
+<body class="height-full bg-gray-light p-6">
+  <div class="d-flex flex-column flex-justify-center flex-items-center text-center">
+
+    <h2 class="h2">Rapid Risk Assessment for /{{repo.full_name}}</h2>
+
+    <div class="box-shadow rounded-2 border p-3 bg-white col-8">
+      <div class="text-center">
+        <small>
+          Rapid risk assessment (RRA) is a lightweight decision-making process which
+          delivery teams can easily adopt into their sprints to address
+          potential security issues early and often. A typical RRA will take 20-30
+          mins to complete and the outcome is an actionable list of tasks which are
+          easy to communicate and prioritise for the team.
+          <a href>Rapid Risk Documentation</a>
+        </small>
+      </div>
+
+ 
+
+      <div class="border d-flex mt-5 mb-5">
+        <div class="p-3 border flex-auto">
+          <small>Risk Score</small>
+          <h2 class="text-red">HIGH</h2>
+        </div>
+
+        <div class="p-3 border flex-auto">
+          <small>Data Sources</small>
+          <h2 class="text-blue">4</h2>
+        </div>
+        
+        <div class="p-3 border flex-auto">
+          <small>Data Classification</small>
+          <h2 class="text-red">RED</h2>
+        </div>
+
+        <div class="p-3 border flex-auto">
+          <small>Open Risks</small>
+          <h2 class="text-orange-light">3</h2>
+        </div>
+      </div>    
+
+
+      <div class="text-left">
+
+
+        <h3 class="h3">1. Register data processed by {{repo.name}}</h3>
+        <p>Register and classify all data processed by this service</p>
+
+        <a href class="btn btn-outline mr-2">Customer Data</a>
+        <a href class="btn btn-outline mr-2">Employee Data</a>
+        <a href class="btn btn-outline mr-2">Stock Data</a>
+        
+        <table class="col-12 data-table">
+          <thead>
+            <tr>
+              <th>
+                <strong>Data Type</strong>
+              </th>
+              <th>
+                <strong>Approximate # of records</strong>
+              </th>
+              <th>
+                <strong>Notes</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                <span class="text-orange-light">
+                  Customer Profiles
+                </span>
+              </th>
+              <td>+100.000 Records</td>
+              <td><small>Used by the customer profile form</small></td>
+            </tr>
+            <tr>
+              <th>
+                <span class="text-orange-light">
+                  Customer Shopping History
+                </span>
+              </th>
+              <td>&lt;100 Records</td>
+              <td><small>Used in the recommendation widget</small></td>
+            </tr>
+            <tr>
+              <th>
+                <span class="text-green">
+                  Article meta data
+                </span>
+              </th>
+              <td>+100.000 Records</td>
+              <td><small>Used in article display</small></td>
+            </tr>
+            <tr>
+              <th>
+                <span class="text-red">
+                  Creditcard data
+                </span>
+              </th>
+              <td>+100.000 Records</td>
+              <td><small>Used in article display</small></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+
+        <hr>
+
+        <h3 class="h3">2. Outline attack scenarios</h3>
+        <p>Discuss potential attack scenarios, to figure out what the worst case 
+          scenarios could be. Keep these notes
+        </p>
+
+        <textarea class="form-control input-block" rows="15">
+Attacker gains access to our service log viewer and scrapes creditcard information from it and puts it on pastebin.com, IMPACT: Reputation Maximum, Productivity: Maxmium (Potentially in mainstream news, will effect our audit, SOC and legal must contact all affected customers)
+
+Attacker guesses the access log url and downloads list of login timestamps. IMPACT: Low - the log data does not contain any confidential data.
+
+A code change triggers the service to start logging confidential data to the public access log, IMPACT: Reputation: high, Productivity: High
+
+Attacker guesses the access log url and downloads list of login timestamps. IMPACT: Low - the log data does not contain any confidential data.
+        </textarea>
+
+        <hr>
+
+        <h3 class="h3">3. Validate And Prioritise</h3>
+        <p>Based on your outlined scenarios above, evaluate what each scenario could 
+          lead to, what is the outcome, and what is the impact of the scenario.
+          <a href>Documentation on how to validate and prioritise</a> using the bowtie model
+        </p>
+        
+        <p>
+           After validating and priortising your scenarios, log them in your issue 
+           tracker tagged with the tag <span class="Label bg-blue">risk</span>   
+        </p>
+
+        <a href class="btn btn-outline mt-3">Open Issue Tracker</a>
+
+        <hr>
+
+        <h5 class="h5 p-t-4">Current Issues</h5>
+        <p>All risk-related issues logged by the team in the {{repo.name}} issue tracker tagged as 
+           <span class="Label bg-blue">risk</span>
+        </p>
+
+        <table class="col-12 data-table">
+          <thead>
+            <tr>
+              <th>
+                <strong>Task</strong>
+              </th>
+              <th>
+                <strong>Priority</strong>
+              </th>
+              <th>
+                <strong>State</strong>
+              </th>
+              <th>
+                <strong>Created</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><a href>Enforce 2FA on admin dashboard login</a></th>
+              <td>High</td>
+              <td><span class="Label Label--orange">In progress</span></td>
+              <td>16 days ago</td>
+            </tr>
+            <tr>
+              <th><a href>Create daily digests to monitor usage</a></th>
+              <td>Low</td>
+              <td><span class="Label State--green">Fixed</span></td>
+              <td>20 days ago</td>
+            </tr>
+            <tr>
+              <th><a href>Implement CSP on the admin UI to mitigate XSS risk</a></th>
+              <td>Low</td>
+              <td><span class="Label Label--orange">In progress</span></td>
+              <td>6 days ago</td>
+            </tr>
+            <tr>
+              <th><a href>Review access to logging service and data stored</a></th>
+              <td>Medium</td>
+              <td><span class="Label Label--orange">In progress</span></td>
+              <td>16 days ago</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div class="mt-6 text-center mb-5">
+    <h4 class="alt-h4 text-gray-light">Need help?</h4>
+
+    <div class="d-flex flex-justify-center mt-2">
+      <a href="https://probot.github.io/docs/" class="btn btn-outline mr-2">Documentation</a>
+      <a href="https://probot-slackin.herokuapp.com/" class="btn btn-outline">Chat on Google Chat</a>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

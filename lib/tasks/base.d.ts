@@ -19,6 +19,7 @@ export declare abstract class BaseTask<T> implements ITask<T> {
     organization: string | null;
     private _summary;
     constructor(params: ITaskParams<T>);
+    start(context: Context): Promise<void>;
     run(context: Context): Promise<boolean>;
     summary(): IResultSummary;
     success(): boolean;

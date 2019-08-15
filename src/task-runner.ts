@@ -59,12 +59,8 @@ export class TaskRunner {
     const runners = await this.loadRunners();
     
     for(const runner of runners){
-      try{
-        await runner.run(context);
+        await runner.start(context);
         results.push(runner);
-      }catch(ex){
-        console.log(ex);
-      }
     }
     
     const result : ITaskRunnerResults =  {

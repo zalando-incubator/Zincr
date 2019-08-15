@@ -64,7 +64,7 @@ describe("zincr", () => {
     };
     var zincr = new Zincr(params);
 
-    expect(zincr.runner.tasks.length).toBe(4);
+    expect(zincr.runner.tasks.length).toBe(5);
     expect(zincr.appconfig).toMatchObject(AppConfig);
     expect(zincr.taskconfig).toMatchObject(TaskConfig);
     done();
@@ -84,7 +84,7 @@ describe("zincr", () => {
 
     var zincr = new Zincr(params);
 
-    expect(zincr.runner.tasks.length).toBe(4);
+    expect(zincr.runner.tasks.length).toBe(5);
     const runners = await zincr.runner.loadRunners();
     expect(runners.every(x => x.organization === "zalando"));
     expect(runners.every(x => x.repo.repo === "rest"));

@@ -30,6 +30,16 @@ export abstract class BaseTask<T> implements ITask<T> {
     this.organization = params.organization;
   }
 
+  async start(context: Context){
+
+    try{
+      await this.run(context);
+    }catch(ex){
+      this.result.push({ result: StatusEnum.Warning, description: ex,label: "Task failed" });
+    }
+
+  }
+
   async run(context: Context){
     return true;
   }
