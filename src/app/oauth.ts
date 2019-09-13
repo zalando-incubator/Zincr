@@ -1,10 +1,9 @@
-import { Router } from "express";
-
+import { Router, Request, Response } from "express";
 const request = require('request')
 const querystring = require('querystring')
 const {promisify} = require('util')
-
 const post = promisify(request.post)
+
 
 export function oauth(router : Router) {
 
@@ -49,4 +48,14 @@ export function oauth(router : Router) {
       res.send('Invalid code')
     }
   })
+}
+
+export async function authenticate (req : Request, res : Response, next : Function) {
+  if (!req.session || !req.session.token) {
+    req.session = {}
+    req.session.redirect = req.originalUrl
+    res.redirect('/github/login')
+  } else {
+    next()
+  }
 }

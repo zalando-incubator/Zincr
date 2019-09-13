@@ -18,6 +18,7 @@ export default class RisksTask extends BaseTask<IRisksConfig> {
   
   async run(context: Context){
 
+    //todo determine the last update date and changes made to the repo since then...
     const riskfile = await context.github.repos.getContents( { ...this.repo, path: "risks.md" } );
     if(riskfile.status !== 200)
     {
@@ -25,7 +26,7 @@ export default class RisksTask extends BaseTask<IRisksConfig> {
       this.result.push({
         label: "No risks.md file found",
         result: StatusEnum.Failure,
-        description: `Create a risks.md file - [Click here](https://${context.host}/risky/${this.repo.owner}/${this.repo.repo}/)`
+        description: `Create a risks.md file - [Click here](https://${context.host}/zincr/risk/${this.repo.owner}/${this.repo.repo}/)`
       })
 
     }else{
@@ -33,7 +34,7 @@ export default class RisksTask extends BaseTask<IRisksConfig> {
       this.result.push({
         label: "Please update your Risks.md file",
         result: StatusEnum.Failure,
-        description: ` [Update your risk assessment](https://${context.host}/risky/${this.repo.owner}/${this.repo.repo}/)`
+        description: ` [Update your risk assessment](https://${context.host}/zincr/risk/${this.repo.owner}/${this.repo.repo}/)`
       })
 
     }

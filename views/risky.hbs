@@ -6,16 +6,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Setup {{#if pkg.name }}{{ pkg.name }}{{else}}Your App{{/if}} | built with Probot</title>
-  <link rel="icon" href="/probot/static/probot-head.png">
-  <link rel="stylesheet" href="/probot/static/primer.css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/Primer/9.5.0/build.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+
+  <script src="/zincr/libs/vue/dist/vue.js" type="text/javascript"></script>
+  <script src="https://anseki.github.io/leader-line/js/libs-1b14e4a-190412215531.js" type="text/javascript"></script>
+
+  <style>
+    .dt-red {
+      background: #f97583;
+      color: #86181d
+    }
+
+    .dt-orange {
+      background: #ffebda;
+      color: #f66a0a
+    }
+
+    .dt-yellow {
+      background: #fffbdd;
+      color: #735c0f
+    }
+
+    .dt-green {
+      background: #dcffe4;
+      color: #144620
+    }
+
+    .editable .edit-link {
+      display: none
+    }
+
+    .editable:hover .edit-link {
+      display: inline-block
+    }
+  </style>
 </head>
 
-<body class="height-full bg-gray-light p-6">
-  <div class="d-flex flex-column flex-justify-center flex-items-center text-center">
+<body class="height-full bg-gray-light pr-6 pl-6 pt-6">
+
+  <div class="d-flex flex-column flex-justify-center flex-items-center text-center" id="app"
+    style="margin-bottom: 100px; padding-bottom: 0 !Important">
 
     <h2 class="h2">Rapid Risk Assessment for /{{repo.full_name}}</h2>
+    <div class="box-shadow rounded-2 border p-3 bg-white col-9 text-left">
 
-    <div class="box-shadow rounded-2 border p-3 bg-white col-8">
       <div class="text-center">
         <small>
           Rapid risk assessment (RRA) is a lightweight decision-making process which
@@ -27,9 +63,8 @@
         </small>
       </div>
 
- 
 
-      <div class="border d-flex mt-5 mb-5">
+      <div class="border d-flex mt-5 mb-5 text-center">
         <div class="p-3 border flex-auto">
           <small>Risk Score</small>
           <h2 class="text-red">HIGH</h2>
@@ -37,9 +72,9 @@
 
         <div class="p-3 border flex-auto">
           <small>Data Sources</small>
-          <h2 class="text-blue">4</h2>
+          <h2 class="text-blue">${classifiedData.length}</h2>
         </div>
-        
+
         <div class="p-3 border flex-auto">
           <small>Data Classification</small>
           <h2 class="text-red">RED</h2>
@@ -47,177 +82,380 @@
 
         <div class="p-3 border flex-auto">
           <small>Open Risks</small>
-          <h2 class="text-orange-light">3</h2>
+          <h2 class="text-orange-light">${scenarios.length}</h2>
         </div>
-      </div>    
+      </div>
+
+      <h3 class="h3">1. Classify data processed by {{repo.name}}</h3>
+      <p>Register and classify all data processed by this service</p>
+
+      <button v-for="(type, name) in datasources.types" v-on:click="datasource_new(type, name)"
+        class="btn btn-outline mr-2">
+        <i v-bind:class="type.icon" style="font-weight: 900"></i> &nbsp;
+        Add ${ type.label }</button>
 
 
-      <div class="text-left">
-
-
-        <h3 class="h3">1. Register data processed by {{repo.name}}</h3>
-        <p>Register and classify all data processed by this service</p>
-
-        <a href class="btn btn-outline mr-2">Customer Data</a>
-        <a href class="btn btn-outline mr-2">Employee Data</a>
-        <a href class="btn btn-outline mr-2">Stock Data</a>
-        
-        <table class="col-12 data-table">
-          <thead>
-            <tr>
-              <th>
-                <strong>Data Type</strong>
-              </th>
-              <th>
-                <strong>Approximate # of records</strong>
-              </th>
-              <th>
-                <strong>Notes</strong>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>
-                <span class="text-orange-light">
-                  Customer Profiles
-                </span>
-              </th>
-              <td>+100.000 Records</td>
-              <td><small>Used by the customer profile form</small></td>
-            </tr>
-            <tr>
-              <th>
-                <span class="text-orange-light">
-                  Customer Shopping History
-                </span>
-              </th>
-              <td>&lt;100 Records</td>
-              <td><small>Used in the recommendation widget</small></td>
-            </tr>
-            <tr>
-              <th>
-                <span class="text-green">
-                  Article meta data
-                </span>
-              </th>
-              <td>+100.000 Records</td>
-              <td><small>Used in article display</small></td>
-            </tr>
-            <tr>
-              <th>
-                <span class="text-red">
-                  Creditcard data
-                </span>
-              </th>
-              <td>+100.000 Records</td>
-              <td><small>Used in article display</small></td>
-            </tr>
-          </tbody>
-        </table>
-        <br>
+      <form v-if="datasources.dataSourceModel">
+        <div class="form-group">
+          <data-classifier v-on:update:color="datasources.dataSourceModel.classification = $event"
+            v-bind:datatypes="datasources.types" v-bind:type="datasources.dataSourceModel.type"
+            v-bind:classification="datasources.dataSourceModel.classification" />
+        </div>
 
         <hr>
 
-        <h3 class="h3">2. Outline attack scenarios</h3>
-        <p>Discuss potential attack scenarios, to figure out what the worst case 
-          scenarios could be. Keep these notes
-        </p>
+        <dl class="form-group">
+          <dt><label>Data source label</label></dt>
+          <dd>
+            <input class="form-control input-block" placeholder="Data Source Name" type="text"
+              v-model="datasources.dataSourceModel.label">
+          </dd>
+        </dl>
 
-        <textarea class="form-control input-block" rows="15">
-Attacker gains access to our service log viewer and scrapes creditcard information from it and puts it on pastebin.com, IMPACT: Reputation Maximum, Productivity: Maxmium (Potentially in mainstream news, will effect our audit, SOC and legal must contact all affected customers)
+        <dl class="form-group">
+          <dt><label>Approximate number of records</label></dt>
+          <dd>
+            <select class="form-select input-block" v-model="datasources.dataSourceModel.quantity"
+              aria-label="Approximate number of records">
+              <option value="">Approximate number of records</option>
 
-Attacker guesses the access log url and downloads list of login timestamps. IMPACT: Low - the log data does not contain any confidential data.
+              <option v-for="(label, id) in config.records" :value="id">
+                ${ label }
+              </option>
 
-A code change triggers the service to start logging confidential data to the public access log, IMPACT: Reputation: high, Productivity: High
+            </select>
+          </dd>
+        </dl>
 
-Attacker guesses the access log url and downloads list of login timestamps. IMPACT: Low - the log data does not contain any confidential data.
-        </textarea>
+        <dl class="form-group">
+          <dt><label>Level of access to records</label></dt>
+          <dd>
+            <div class="form-checkbox" v-for="(access, key) in config.access">
+              <label>
+                <input type="checkbox" :id="access" :value="key" v-model="datasources.dataSourceModel.access">
+                ${access}
+              </label>
+            </div>
+          </dd>
+        </dl>
 
-        <hr>
+        <dl class="form-group">
+          <dt><label>Your notes</label></dt>
+          <dd>
+            <textarea v-model="datasources.dataSourceModel.notes" style="height: 70px; min-height: 70px"
+              class="form-control input-block" placeholder="Your notes..."></textarea>
+          </dd>
+        </dl>
 
-        <h3 class="h3">3. Validate And Prioritise</h3>
-        <p>Based on your outlined scenarios above, evaluate what each scenario could 
-          lead to, what is the outcome, and what is the impact of the scenario.
-          <a href>Documentation on how to validate and prioritise</a> using the bowtie model
-        </p>
-        
-        <p>
-           After validating and priortising your scenarios, log them in your issue 
-           tracker tagged with the tag <span class="Label bg-blue">risk</span>   
-        </p>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" v-on:click="datasource_save(datasources.dataSourceModel)">Save
+            changes</button>
+          <button type="button" v-on:click="datasources.dataSourceModel = null" class="btn">Cancel</button>
+        </div>
 
-        <a href class="btn btn-outline mt-3">Open Issue Tracker</a>
+      </form>
 
-        <hr>
+      <hr>
 
-        <h5 class="h5 p-t-4">Current Issues</h5>
-        <p>All risk-related issues logged by the team in the {{repo.name}} issue tracker tagged as 
-           <span class="Label bg-blue">risk</span>
-        </p>
+      <table class="col-12 data-table v-align-top">
+        <thead>
+          <tr>
+            <th>
+            </th>
+            <th>
+              <strong>Description</strong>
+            </th>
+            <th>
+              <strong># of records</strong>
+            </th>
+            <th>
+              <strong>Access</strong>
+            </th>
+          </tr>
+        </thead>
 
-        <table class="col-12 data-table">
-          <thead>
-            <tr>
-              <th>
-                <strong>Task</strong>
-              </th>
-              <th>
-                <strong>Priority</strong>
-              </th>
-              <th>
-                <strong>State</strong>
-              </th>
-              <th>
-                <strong>Created</strong>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th><a href>Enforce 2FA on admin dashboard login</a></th>
-              <td>High</td>
-              <td><span class="Label Label--orange">In progress</span></td>
-              <td>16 days ago</td>
-            </tr>
-            <tr>
-              <th><a href>Create daily digests to monitor usage</a></th>
-              <td>Low</td>
-              <td><span class="Label State--green">Fixed</span></td>
-              <td>20 days ago</td>
-            </tr>
-            <tr>
-              <th><a href>Implement CSP on the admin UI to mitigate XSS risk</a></th>
-              <td>Low</td>
-              <td><span class="Label Label--orange">In progress</span></td>
-              <td>6 days ago</td>
-            </tr>
-            <tr>
-              <th><a href>Review access to logging service and data stored</a></th>
-              <td>Medium</td>
-              <td><span class="Label Label--orange">In progress</span></td>
-              <td>16 days ago</td>
-            </tr>
+        <tbody>
 
-          </tbody>
-        </table>
+          <tr v-for="d in classifiedData">
+            <th style="width: 20px" v-bind:class="dataTypeRowClass(d.classification)" v-bind:title="d.sourcetype.label">
+              <i v-bind:class="d.sourcetype.icon"></i></th>
+            <th style="width: 70%">
 
+              <a href v-bind:title="d.sourcetype.label" v-on:click.stop="datasource_edit(datasources.dataSourceModel)">
+                ${d.label}
+              </a><br>
+              <small class="branch-ref">${d.notes}</small>
+
+            </th>
+
+            <td>${d.quantity} Records</td>
+            <td>${d.access}</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+
+      <p class="text-center p-3">
+        After outlining all data processed by the service, continue below to Outline
+        how the confidentiality, integrity or availability of the service and the data could
+        be affected.
+      </p>
+    </div>
+
+
+    <div class="col-12 m-5">
+
+      <h3 class="h3">2. Outline attack scenarios</h3>
+      <p class="col-8 offset-2 text-center p-3">
+        Discuss potential attack scenarios, evaluate what each scenario could
+        lead to, what is the outcome, and what is the impact of the scenario.
+        <a href>Documentation on how to validate and prioritise</a> using the bowtie model
+      </p>
+
+      <div class="d-flex flex-column flex-md-row pb-5 pt-5" v-for="event in filteredEvents">
+
+        <div class="col-3 flex-self-center">
+          <div v-bind:id="'e_' + event.id + '_t_' + index"
+            class="position-relative col-10 border rounded-2 p-3 mb-2 bg-white editable"
+            v-for="(threat, index) in event.threats">
+            <a href="" v-on:click.prevent="threat_new(event, threat)"
+              class="position-absolute top-0 left-0 pl-1 edit-link"> <i class="fas fa-pen"></i></a>
+            <strong>${threat.category}</strong>: ${threat.description}
+          </div>
+        </div>
+
+        <div class="col-6 flex-self-center">
+          <div v-bind:id="'e_' + event.id"
+            class="position-relative border rounded-2 p-3 mb-2 bg-white ml-5 mr-5 editable">
+
+            Someone affects the <strong>${event.type}</strong> of
+            <strong class="Label"
+              v-bind:class="dataTypeRowClass(event.datasource.classification)">${event.datasource.label}</strong> by:
+            <small>${event.description}</small>
+
+            <a href="" v-on:click.prevent="event_new(event)" class="position-absolute top-0 left-0 pl-1 edit-link"> <i
+                class="fas fa-pen"></i></a>
+
+            <hr>
+
+            <div class="container-lg clearfix position-relative">
+
+              <div class="col-12 text-center">
+                <button class="btn btn-link btn-sm position-absolute left-0" v-on:click="threat_new(event)">+
+                  Threat</button>
+
+                <small style="font-size: 10px" v-if="event.issue">Related to issue: <a class="label dt-red"
+                    href>${event.issue}</a></small>
+                <button v-else class="btn btn-outline btn-sm">Create Issue</button>
+
+                <button class="btn btn-link btn-sm position-absolute right-0" v-on:click="outcome_new(event)">+
+                  Consequence</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-3 flex-self-center">
+          <div v-bind:id="'e_' + event.id + '_o_' + index"
+            class="position-relative col-10 right-0 offset-2 border rounded-2 mb-2  bg-white editable"
+            v-for="(outcome, index) in event.outcomes">
+            <div class="p-2">${outcome.description}</div>
+            <a href="" v-on:click.prevent="outcome_new(event, outcome)"
+              class="position-absolute top-0 left-0 pl-1 edit-link"> <i class="fas fa-pen"></i></a>
+
+            <div class="rounded-2 container col-12">
+
+              <div class="col-4 float-left dt-green">
+                <i class="fas fa-newspaper"></i>
+              </div>
+
+              <div class="col-4 float-left dt-red">
+                <i class="fas fa-hammer"></i>
+
+              </div>
+              <div class="col-4  float-left dt-orange">
+                <i class="fas fa-money-bill-alt"></i>
+
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
 
-      
+      <button class="btn btn-outline" v-on:click="event_new()">Add Scenario</button>
     </div>
+
+
+
+    <div class="box-shadow rounded-2 border p-3 bg-white col-9">
+
+      <h3 class="h3">3. Logged issues</h3>
+      <p>
+        After validating and priortising your scenarios, log them in your issue
+        tracker tagged with the tag <span class="Label bg-blue">risk</span>
+      </p>
+
+      <a href class="btn btn-outline mt-3">Open Issue Tracker</a>
+
+      <table class="col-12 data-table text-left">
+        <thead>
+          <tr>
+            <th></th>
+            <th>
+              <strong>Task</strong>
+            </th>
+            <th>
+              <strong>Priority</strong>
+            </th>
+            <th>
+              <strong>State</strong>
+            </th>
+            <th>
+              <strong>Created</strong>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="issue in filteredIssues">
+            <th style="width: 50px"><strong><a v-bind:href="issue.url">#${issue.number}</a></strong></th>
+            <td><a v-bind:href="issue.url">${issue.title}</a></td>
+            <td>High</td>
+            <td><span class="Label Label--orange">${issue.state}</span></td>
+            <td>${issue.created_at}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+
+
+
+    <dialog-overlay v-if="threatEditor.threat" title='Threat' height="400" width="500"
+      v-on:submit="threat_save(threatEditor.threat)" v-on:cancel="threatEditor.threat = null;">
+
+      <dl class="form-group">
+        <dt><label>Threat type</label></dt>
+        <dd>
+
+          <select class="form-select input-block" v-model="threatEditor.threat.category" aria-label="Threat type">
+            <option value="">Select threat type</option>
+
+            <option v-for="(item, id) in config.owasp" :value="id">
+              ${ item.label }
+            </option>
+
+          </select>
+        </dd>
+      </dl>
+
+      <dl class="form-group">
+        <dt><label>Your notes</label></dt>
+        <dd>
+          <textarea v-model="threatEditor.threat.description" class="form-control input-block"
+            style="height: 100px; min-height: 100px" placeholder="Describe the threat..."></textarea>
+        </dd>
+      </dl>
+    </dialog-overlay>
+
+
+
+    <dialog-overlay v-if="threatEditor.event" 
+      title='Scenario' height="600" width="500"
+      v-on:submit="event_save(threatEditor.event)" 
+      v-on:cancel="threatEditor.event = null;">
+      <small>Describe your scenario, include what data could potentially be affected and in what way</small>
+
+      <dl class="form-group">
+        <dt><label>Someone affects:</label></dt>
+        <dd>
+          <menu-overlay v-model="threatEditor.event.threat" v-bind:items="config.category" width="450" value-field="id">
+            <template v-slot:label="{ item }">
+
+              <div class="border rounded-2 box p-2 width-fit">
+                <span v-if="item">
+                  <h4>${item.label}</h4>
+                  <small>${item.description}</small>
+                </span>
+
+                <span v-else>
+                  <h4>Select category</h4>
+                  <small>This scenario affects confidentiality, integrity or availability?</small>
+                </span>
+              </div>
+
+            </template>
+
+            <template v-slot:item="{ item }">
+              <h4>${item.label}</h4>
+              <small>${item.description}</small>
+            </template>
+          </menu-overlay>
+        </dd>
+      </dl>
+
+      <dl class="form-group">
+        <dt><label>Of the data:</label></dt>
+        <dd>
+          <menu-overlay v-model="threatEditor.event.data" v-bind:items="classifiedData" width="450" value-field="id">
+            <template v-slot:label="{ item }">
+              <div class="border rounded-2 box p-2 width-fit" v-if="item"
+                v-bind:class="dataTypeRowClass(item.classification)">
+                <h4><i v-bind:class="item.sourcetype.icon"></i> ${item.label}</h4>
+                <small><strong>Records: </strong>${item.quantity} <strong>Access:</strong> ${item.access}</small>
+              </div>
+              <div class="border rounded-2 box p-2 width-fit" v-else>
+                <h4>Select Datasource</h4>
+                <small>What data does this scenario relate to?</small>
+              </div>
+            </template>
+
+            <template v-slot:item="{ item }">
+              <h4><i v-bind:class="item.sourcetype.icon"></i> ${item.label}</h4>
+              <small>${item.notes}</small>
+            </template>
+          </menu-overlay>
+        </dd>
+      </dl>
+
+      <dl class="form-group">
+        <dt><label>By:</label></dt>
+        <dd>
+          <textarea v-model="threatEditor.event.description" class="form-control input-block"
+            style="height: 100px; min-height: 100px" placeholder="Describe the scenario..."></textarea>
+        </dd>
+      </dl>
+
+    </dialog-overlay>
+
+
+
+
+
+    <div class="position-fixed box p-3 text-center bg-white border-top col-12" style="z-index: 9999; bottom: 0">
+
+      <button v-on:click.stop="assessment_save()" class="btn btn-primary btn-large">Save Risk Assessment</button>
+    </div>
+
+
+
+    <div class="mt-6 text-center mb-5">
+      <h4 class="alt-h4 text-gray-light">Need help?</h4>
+
+      <div class="d-flex flex-justify-center mt-2">
+        <a href="https://probot.github.io/docs/" class="btn btn-outline mr-2">Documentation</a>
+        <a href="https://probot-slackin.herokuapp.com/" class="btn btn-outline">Chat on Google Chat</a>
+      </div>
+    </div>
+
   </div>
 
-  <div class="mt-6 text-center mb-5">
-    <h4 class="alt-h4 text-gray-light">Need help?</h4>
-
-    <div class="d-flex flex-justify-center mt-2">
-      <a href="https://probot.github.io/docs/" class="btn btn-outline mr-2">Documentation</a>
-      <a href="https://probot-slackin.herokuapp.com/" class="btn btn-outline">Chat on Google Chat</a>
-    </div>
-  </div>
-  </div>
+  <script src="/zincr/public/components.js" type="text/javascript"></script>
+  <script src="/zincr/public/risk.js" type="module"></script>
 </body>
 
 </html>
