@@ -36,5 +36,9 @@ build_steps:
         IMAGE_NAME="registry-write.opensource.zalan.do/security/zincr-pr-test:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
       fi
       
+      if [[ "${CDP_TARGET_BRANCH}" = "risksmd-poc" && -z "${CDP_PULL_REQUEST_NUMBER}" ]]; then
+        IMAGE_NAME="registry-write.opensource.zalan.do/security/zincr-internal:${COMMIT_ID}-${CDP_TARGET_REPOSITORY_COUNTER}"
+      fi
+      
       docker build --rm -t "${IMAGE_NAME}" .
       docker push "${IMAGE_NAME}"
