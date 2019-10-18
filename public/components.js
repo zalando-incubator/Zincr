@@ -98,6 +98,17 @@ Vue.component("menu-overlay", {
   
   <div>
 
+  <nav v-if="open" class="menu position-absolute box-shadow-large" 
+  v-bind:style="{width: width + 'px'}" 
+  style="margin-top: -70px; z-index: 99999; max-height: 500px; overflow: scroll" aria-label="Person settings">
+  <span class="menu-item text-normal" v-on:click.prevent="select(item)" aria-current="page" v-for="item in items">
+    <slot name="item" v-bind:item="item">
+      <!-- Fallback content -->
+      {{ item }}
+    </slot>
+  </span>
+</nav>
+
     <span v-on:click.prevent="toggle()" class="text-normal">
       <slot name="label" v-bind:item="display">
         <span v-if="value">{{display}}</span>
@@ -105,14 +116,7 @@ Vue.component("menu-overlay", {
       </slot>
     </span>
 
-    <nav v-if="open" class="menu position-absolute box-shadow-large" v-bind:style="{width: width + 'px'}" style="z-index: 99999" aria-label="Person settings">
-      <span class="menu-item text-normal" v-on:click.prevent="select(item)" aria-current="page" v-for="item in items">
-        <slot name="item" v-bind:item="item">
-          <!-- Fallback content -->
-          {{ item }}
-        </slot>
-      </span>
-    </nav>
+    
 
     </div>
   </div>
@@ -173,7 +177,8 @@ Vue.component("dialog-overlay", {
       <div class="Box-body text-left">
         <slot></slot>
       </div>
-      <div class="Box-footer form-actions">
+
+      <div class="Box-footer form-actions position-absolute left-0 bottom-0 right-0">
           <button v-if="enableDelete" type="submit" class="btn btn-danger float-left" 
           v-on:click="deleteItem()">Delete</button>
 

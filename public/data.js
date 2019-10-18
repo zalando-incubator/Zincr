@@ -339,7 +339,10 @@ export default {
 
       impact: {
         reputation: {
+          label: "Reputational Impact",
           description: "Who would notice the incident occurring?",
+          icon: "fas fa-newspaper",
+
           levels: {
             low: "Insiders",
             medium: "Customers",
@@ -347,8 +350,12 @@ export default {
             maximum: "Mainstream news"
           }
         },
+
         productivity: {
+          label: "Productivity Impact",
           description: "Amount of unplanned effort to resolve the incident?",
+          icon: "fas fa-hammer",
+
           levels: {
             low: "24h < team effort",
             medium: "> 2d team effort",
@@ -356,8 +363,12 @@ export default {
             maximum: "Big company effort"
           }
         },
+
         financial: {
+          label: "Financial Impact",
           description: "Direct or indirect loss of money due to incident",
+          icon: "fas fa-money-bill-alt",
+
           levels: {
             low: "No financial loss",
             medium: ">1k eur loss",

@@ -189,7 +189,9 @@
             </th>
 
             <td>${d.quantity} Records</td>
-            <td>${d.access}</td>
+            <td>
+              <small v-for="a in d.access">${a} </small> &nbsp; 
+            </td>
           </tr>
         </tbody>
 
@@ -249,7 +251,8 @@
                     href>${event.issue}</a></small>
                 <button v-else class="btn btn-outline btn-sm">Create Issue</button>
 
-                <button class="btn btn-link btn-sm position-absolute right-0" v-on:click="outcome_new(event)">+
+                <button class="btn btn-link btn-sm position-absolute right-0" 
+                  v-on:click="outcome_new(event)">+
                   Consequence</button>
               </div>
             </div>
@@ -261,29 +264,23 @@
           <div v-bind:id="'e_' + event.id + '_o_' + index"
             class="position-relative col-10 right-0 offset-2 border rounded-2 mb-2  bg-white editable"
             v-for="(outcome, index) in event.outcomes">
+
             <div class="p-2">${outcome.description}</div>
+
             <a href="" v-on:click.prevent="outcome_new(event, outcome)"
               class="position-absolute top-0 left-0 pl-1 edit-link"> <i class="fas fa-pen"></i></a>
 
-            <div class="rounded-2 container col-12">
-
-              <div class="col-4 float-left dt-green">
-                <i class="fas fa-newspaper"></i>
-              </div>
-
-              <div class="col-4 float-left dt-red">
-                <i class="fas fa-hammer"></i>
-
-              </div>
-              <div class="col-4  float-left dt-orange">
-                <i class="fas fa-money-bill-alt"></i>
-
-              </div>
-            </div>
+              <div class="container col-12" v-bind:class="impactColor(outcome.impact)">
+                <i v-bind:class="impactIcon(outcome.type)"></i> 
+                &nbsp; <small>${outcome.impact} ${outcome.type} impact</small>
+             </div>
+            
           </div>
         </div>
 
       </div>
+
+
 
       <button class="btn btn-outline" v-on:click="event_new()">Add Scenario</button>
     </div>
@@ -335,21 +332,36 @@
 
 
 
-    <dialog-overlay v-if="threatEditor.threat" title='Threat' height="400" width="500"
+    <dialog-overlay v-if="threatEditor.threat" title='Threat' height="650" width="550"
       v-on:submit="threat_save(threatEditor.threat)" v-on:cancel="threatEditor.threat = null;">
 
       <dl class="form-group">
-        <dt><label>Threat type</label></dt>
         <dd>
+          <menu-overlay v-model="threatEditor.threat.category" 
+            v-bind:items="threatAsArray" 
+              width="450" value-field="id">
 
-          <select class="form-select input-block" v-model="threatEditor.threat.category" aria-label="Threat type">
-            <option value="">Select threat type</option>
+            <template v-slot:label="{ item }">
 
-            <option v-for="(item, id) in config.owasp" :value="id">
-              ${ item.label }
-            </option>
+              <div class="border rounded-2 box p-2 width-fit" v-if="item">
+                <h4>${item.label}</h4>
+                <small>${item.description}</small>
+              </div>
 
-          </select>
+              <div class="border rounded-2 box p-2 width-fit" v-else>
+                <h4>Select type of threat</h4>
+                <small>Select a threat which could lead to the descriped event</small>
+              </div>
+
+            </template>
+
+            <template v-slot:item="{ item }">
+              <h4>${item.label}</h4>
+              <small>${item.description}</small>
+            </template>
+
+          </menu-overlay>
+
         </dd>
       </dl>
 
@@ -365,9 +377,10 @@
 
 
     <dialog-overlay v-if="threatEditor.event" 
-      title='Scenario' height="600" width="500"
+      title='Scenario' height="650" width="550"
       v-on:submit="event_save(threatEditor.event)" 
       v-on:cancel="threatEditor.event = null;">
+
       <small>Describe your scenario, include what data could potentially be affected and in what way</small>
 
       <dl class="form-group">
@@ -433,11 +446,52 @@
     </dialog-overlay>
 
 
+    <dialog-overlay v-if="threatEditor.outcome" title='Consequence' height="650" width="550"
+      v-on:submit="outcome_save(threatEditor.outcome)" 
+      v-on:cancel="threatEditor.outcome = null;">
+
+      <dl class="form-group">
+        <dd>
+          <menu-overlay v-model="threatEditor.outcome.type" 
+            v-bind:items="impactAsArray" width="450" value-field="id">
+
+            <template v-slot:label="{ item }">
+
+              <div class="border rounded-2 box p-2 width-fit" v-if="item">
+                <h4><i v-bind:class="item.icon"></i> ${item.label}</h4>
+                <small>${item.description}</small>
+
+                 SEVERITY 1 - 5
+              </div>
+
+              <div class="border rounded-2 box p-2 width-fit" v-else>
+                <h4>Select type of impact</h4>
+                <small>Descripe how this impacts Zalando</small>
+              </div>
+
+            </template>
+
+            <template v-slot:item="{ item }">
+              <h4><i v-bind:class="item.icon"></i> ${item.label}</h4>
+              <small>${item.description}</small>
+            </template>
+
+          </menu-overlay>
+        </dd>
+      </dl>
+
+      <dl class="form-group">
+        <dt><label>Tell us more:</label></dt>
+        <dd>
+          <textarea v-model="threatEditor.outcome.description" class="form-control input-block"
+            style="height: 100px; min-height: 100px" placeholder="Describe the outcome..."></textarea>
+        </dd>
+      </dl>
+    </dialog-overlay>
 
 
 
     <div class="position-fixed box p-3 text-center bg-white border-top col-12" style="z-index: 9999; bottom: 0">
-
       <button v-on:click.stop="assessment_save()" class="btn btn-primary btn-large">Save Risk Assessment</button>
     </div>
 
@@ -455,7 +509,12 @@
   </div>
 
   <script src="/zincr/public/components.js" type="text/javascript"></script>
-  <script src="/zincr/public/risk.js" type="module"></script>
+  
+  <script type="module">
+    import {start} from '/zincr/public/risk.js';
+    start('{{repo.owner.login}}', '{{repo.name}}');
+  </script>
+  
 </body>
 
 </html>
