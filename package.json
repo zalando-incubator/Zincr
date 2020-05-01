@@ -16,12 +16,15 @@
     "build": "tsc -p tsconfig.json",
     "start": "probot run ./lib/index.js",
     "test": "nyc jest **/*.ts",
-    "test:watch": "jest --watch --notify --notifyMode=change --coverage"
+    "test:watch": "jest --watch --notify --notifyMode=change --coverage",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "license-lookup": "0.0.20",
     "probot": "^7.5.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/jest": "^23.3.14",
@@ -50,5 +53,6 @@
     "plugins": [
       "typescript"
     ]
-  }
+  },
+  "snyk": true
 }
