@@ -1,5 +1,4 @@
-FROM registry.opensource.zalan.do/stups/node:11.8.0-44
-RUN apt-get update && apt-get dist-upgrade -y
+FROM registry.opensource.zalan.do/library/node-12.20-alpine:latest
 
 WORKDIR /app
 ENV LOG_LEVEL debug
