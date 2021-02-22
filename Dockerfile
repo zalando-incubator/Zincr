@@ -1,5 +1,6 @@
 FROM registry.opensource.zalan.do/library/node-12.20-alpine:latest
 
+
 WORKDIR /app
 ENV LOG_LEVEL debug
 
